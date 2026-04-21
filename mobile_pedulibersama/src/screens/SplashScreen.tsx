@@ -22,7 +22,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     const loadingAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        // Step 1: Logo spring scale + fadeIn
+        // Logo spring scale + fadeIn
         Animated.parallel([
             Animated.spring(scaleAnim, {
                 toValue: 1,
@@ -36,7 +36,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
                 useNativeDriver: true,
             }),
         ]).start(() => {
-            // Step 2: Teks fadeIn setelah logo
+            // Teks fadeIn setelah logo
             Animated.timing(fadeTextAnim, {
                 toValue: 1,
                 duration: 400,
@@ -44,13 +44,13 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
                 useNativeDriver: true,
             }).start();
 
-            // Step 3: Loading bar
+            // Loading bar
             Animated.timing(loadingAnim, {
                 toValue: 1,
                 duration: 1500,
                 useNativeDriver: false,
             }).start(() => {
-                // Step 4: Setelah loading bar penuh, delay 300ms lalu onFinish
+                //Setelah loading bar penuh, delay 300ms lalu onFinish
                 setTimeout(() => {
                     onFinish();
                 }, 300);
