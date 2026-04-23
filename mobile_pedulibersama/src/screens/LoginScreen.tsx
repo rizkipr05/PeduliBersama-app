@@ -94,7 +94,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Password"
                         placeholder="Masukkan password"
-                        leftIcon={<Text style={styles.icon}>🔒</Text>}
+                        leftIcon={<Text style={styles.icon}></Text>}
                         isPassword
                         value={password}
                         onChangeText={text => {
