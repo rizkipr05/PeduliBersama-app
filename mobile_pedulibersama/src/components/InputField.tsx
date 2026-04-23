@@ -8,6 +8,7 @@ import {
     View,
     ViewStyle,
 } from 'react-native';
+import { Eye, EyeOff } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
 interface InputFieldProps extends TextInputProps {
@@ -69,8 +70,13 @@ const InputField: React.FC<InputFieldProps> = ({
                 {isPassword && (
                     <TouchableOpacity
                         onPress={() => setShowPassword(!showPassword)}
-                        style={styles.rightIcon}>
-                        <Text style={styles.eyeIcon}>{showPassword ? '👁️' : '🙈'}</Text>
+                        style={styles.rightIcon}
+                        activeOpacity={0.7}>
+                        {showPassword ? (
+                            <EyeOff size={20} color={Colors.textMuted} />
+                        ) : (
+                            <Eye size={20} color={Colors.textMuted} />
+                        )}
                     </TouchableOpacity>
                 )}
             </View>
@@ -107,9 +113,6 @@ const styles = StyleSheet.create({
     rightIcon: {
         marginLeft: Spacing.sm,
         padding: 4,
-    },
-    eyeIcon: {
-        fontSize: 16,
     },
     errorText: {
         ...Typography.caption,

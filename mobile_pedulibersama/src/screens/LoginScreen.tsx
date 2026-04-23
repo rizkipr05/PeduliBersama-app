@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import { Mail, Lock } from 'lucide-react-native';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import { Colors, Spacing, Typography } from '../theme';
@@ -80,7 +81,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Email"
                         placeholder="nama@email.com"
-                        leftIcon={<Text style={styles.icon}></Text>}
+                        leftIcon={<Mail size={20} color={Colors.textMuted} />}
                         keyboardType="email-address"
                         autoCapitalize="none"
                         value={email}
@@ -94,7 +95,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Password"
                         placeholder="Masukkan password"
-                        leftIcon={<Text style={styles.icon}></Text>}
+                        leftIcon={<Lock size={20} color={Colors.textMuted} />}
                         isPassword
                         value={password}
                         onChangeText={text => {
@@ -189,10 +190,6 @@ const styles = StyleSheet.create({
     form: {
         gap: 16,
         marginBottom: Spacing.md,
-    },
-    icon: {
-        fontSize: 16,
-        color: Colors.textMuted,
     },
     forgotPassword: {
         alignSelf: 'flex-end',

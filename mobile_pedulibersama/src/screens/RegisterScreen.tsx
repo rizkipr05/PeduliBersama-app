@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import { User, Mail, Lock, ChevronLeft } from 'lucide-react-native';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import { Colors, Spacing, Typography } from '../theme';
@@ -84,8 +85,9 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
                 {/* Back Button */}
                 <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => navigation.goBack()}>
-                    <Text style={styles.backIcon}>←</Text>
+                    onPress={() => navigation.goBack()}
+                    activeOpacity={0.7}>
+                    <ChevronLeft size={24} color={Colors.textPrimary} />
                 </TouchableOpacity>
 
                 {/* Title */}
@@ -99,7 +101,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Nama Lengkap"
                         placeholder="Nama Lengkap"
-                        leftIcon={<Text style={styles.icon}>👤</Text>}
+                        leftIcon={<User size={20} color={Colors.textMuted} />}
                         autoCapitalize="words"
                         value={form.fullName}
                         onChangeText={text => updateForm('fullName', text)}
@@ -109,7 +111,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Email"
                         placeholder="Email"
-                        leftIcon={<Text style={styles.icon}>✉</Text>}
+                        leftIcon={<Mail size={20} color={Colors.textMuted} />}
                         keyboardType="email-address"
                         autoCapitalize="none"
                         value={form.email}
@@ -120,7 +122,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Password"
                         placeholder="Password"
-                        leftIcon={<Text style={styles.icon}>🔒</Text>}
+                        leftIcon={<Lock size={20} color={Colors.textMuted} />}
                         isPassword
                         value={form.password}
                         onChangeText={text => updateForm('password', text)}
@@ -130,7 +132,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Konfirmasi Password"
                         placeholder="Konfirmasi Password"
-                        leftIcon={<Text style={styles.icon}>🔒</Text>}
+                        leftIcon={<Lock size={20} color={Colors.textMuted} />}
                         isPassword
                         value={form.confirmPassword}
                         onChangeText={text => updateForm('confirmPassword', text)}
@@ -191,10 +193,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: Spacing.lg,
     },
-    backIcon: {
-        fontSize: 18,
-        color: Colors.textPrimary,
-    },
     titleSection: {
         marginBottom: Spacing.xl,
     },
@@ -210,10 +208,6 @@ const styles = StyleSheet.create({
     form: {
         gap: 16,
         marginBottom: Spacing.md,
-    },
-    icon: {
-        fontSize: 16,
-        color: Colors.textMuted,
     },
     divider: {
         flexDirection: 'row',
