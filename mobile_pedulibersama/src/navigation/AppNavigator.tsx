@@ -4,9 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import OnboardingScreen from '../screens/OnboardingScreen';
 
 export type RootStackParamList = {
     Splash: undefined;
+    Onboarding: undefined;
     Login: undefined;
     Register: undefined;
     ForgotPassword: undefined;
@@ -25,8 +27,9 @@ const AppNavigator: React.FC = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Login"
+                initialRouteName="Onboarding"
                 screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Onboarding" component={OnboardingScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen
                     name="Register"
