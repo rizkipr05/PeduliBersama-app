@@ -80,7 +80,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     <InputField
                         label="Email"
                         placeholder="nama@email.com"
-                        leftIcon={<Text style={styles.icon}>✉</Text>}
+                        leftIcon={<Text style={styles.icon}></Text>}
                         keyboardType="email-address"
                         autoCapitalize="none"
                         value={email}
