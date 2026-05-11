@@ -15,25 +15,32 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
 export default function ReportsPage() {
-
   const [data, setData] = useState([]);
-
-  // FETCH REPORT DATA
-  const fetchData = async () => {
-    try {
-
-      const res =
-        await getDonationReports();
-
-      setData(res.data);
-
-    } catch (err) {
-      alert("Gagal mengambil laporan");
-    }
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
+    let active = true;
+
+    getDonationReports()
+      .then((res) => {
+        if (active) {
+          setData(Array.isArray(res.data) ? res.data : []);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          alert("Gagal mengambil laporan");
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   // EXPORT PDF
@@ -61,7 +68,7 @@ export default function ReportsPage() {
       tableRows.push([
         item.user?.name,
         item.disaster?.title,
-        `Rp ${item.amount.toLocaleString()}`,
+        `Rp ${Number(item.amount || 0).toLocaleString()}`,
         item.status,
       ]);
 
@@ -117,6 +124,10 @@ export default function ReportsPage() {
       "laporan-donasi.xlsx"
     );
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -204,7 +215,7 @@ export default function ReportsPage() {
                 </td>
 
                 <td className="p-4">
-                  Rp {item.amount.toLocaleString()}
+                  Rp {Number(item.amount || 0).toLocaleString()}
                 </td>
 
                 <td className="p-4">
@@ -224,6 +235,14 @@ export default function ReportsPage() {
               </tr>
 
             ))}
+
+            {data.length === 0 && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  Belum ada laporan donasi
+                </td>
+              </tr>
+            )}
 
           </tbody>
 

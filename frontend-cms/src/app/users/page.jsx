@@ -9,22 +9,44 @@ import {
 } from "@/services/userService";
 
 export default function UsersPage() {
-
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // FETCH DATA
+  useEffect(() => {
+    let active = true;
+
+    getUsers()
+      .then((res) => {
+        if (active) {
+          setData(Array.isArray(res.data) ? res.data : []);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          alert("Gagal mengambil data");
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const fetchData = async () => {
     try {
       const res = await getUsers();
-      setData(res.data);
-    } catch (err) {
+      setData(Array.isArray(res.data) ? res.data : []);
+    } catch {
       alert("Gagal mengambil data");
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   // DELETE
   const handleDelete = async (id) => {
@@ -43,10 +65,14 @@ export default function UsersPage() {
 
       fetchData();
 
-    } catch (err) {
+    } catch {
       alert("Gagal menghapus user");
     }
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -158,6 +184,14 @@ export default function UsersPage() {
               </tr>
 
             ))}
+
+            {data.length === 0 && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  Belum ada data user
+                </td>
+              </tr>
+            )}
 
           </tbody>
 

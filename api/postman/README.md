@@ -1,7 +1,7 @@
 Import collection ini ke Postman:
 
 - File: `api/postman/PeduliBersama.postman_collection.json`
-- Default `baseUrl`: `http://localhost:3000`
+- Default `baseUrl`: `http://localhost:3001`
 
 Urutan test yang disarankan:
 

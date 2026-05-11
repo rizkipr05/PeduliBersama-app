@@ -9,23 +9,59 @@ import {
 
 export default function DisasterPage() {
   const [data, setData] = useState([]);
-
-  const fetchData = async () => {
-    const res = await getDisasters();
-    setData(res.data);
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
+    let active = true;
+
+    getDisasters()
+      .then((res) => {
+        if (active) {
+          setData(Array.isArray(res.data) ? res.data : []);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          alert("Gagal mengambil data bencana");
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await getDisasters();
+      setData(Array.isArray(res.data) ? res.data : []);
+    } catch {
+      alert("Gagal mengambil data bencana");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDelete = async (id) => {
     const confirmDelete = confirm("Hapus data?");
     if (!confirmDelete) return;
 
-    await deleteDisaster(id);
-    fetchData();
+    try {
+      await deleteDisaster(id);
+      void fetchData();
+    } catch {
+      alert("Gagal menghapus data");
+    }
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -68,11 +104,17 @@ export default function DisasterPage() {
               <tr key={item.id} className="border-t">
 
                 <td className="p-4">
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="w-20 h-14 object-cover rounded"
-                  />
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-20 h-14 object-cover rounded"
+                    />
+                  ) : (
+                    <div className="w-20 h-14 rounded bg-gray-100 text-xs text-gray-500 flex items-center justify-center">
+                      No Image
+                    </div>
+                  )}
                 </td>
 
                 <td className="p-4">
@@ -115,6 +157,14 @@ export default function DisasterPage() {
 
               </tr>
             ))}
+
+            {data.length === 0 && (
+              <tr>
+                <td colSpan="5" className="p-4 text-center text-gray-500">
+                  Belum ada data bencana
+                </td>
+              </tr>
+            )}
           </tbody>
 
         </table>

@@ -9,22 +9,44 @@ import {
 } from "@/services/donationService";
 
 export default function DonationsPage() {
-
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // FETCH DATA
+  useEffect(() => {
+    let active = true;
+
+    getDonations()
+      .then((res) => {
+        if (active) {
+          setData(Array.isArray(res.data) ? res.data : []);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          alert("Gagal mengambil data");
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const fetchData = async () => {
     try {
       const res = await getDonations();
-      setData(res.data);
-    } catch (err) {
+      setData(Array.isArray(res.data) ? res.data : []);
+    } catch {
       alert("Gagal mengambil data");
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   // VERIFY
   const handleVerify = async (id) => {
@@ -42,7 +64,7 @@ export default function DonationsPage() {
 
       fetchData();
 
-    } catch (err) {
+    } catch {
       alert("Verifikasi gagal");
     }
   };
@@ -63,10 +85,14 @@ export default function DonationsPage() {
 
       fetchData();
 
-    } catch (err) {
+    } catch {
       alert("Gagal menolak donasi");
     }
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -216,6 +242,14 @@ export default function DonationsPage() {
               </tr>
 
             ))}
+
+            {data.length === 0 && (
+              <tr>
+                <td colSpan="7" className="p-4 text-center text-gray-500">
+                  Belum ada data donasi
+                </td>
+              </tr>
+            )}
 
           </tbody>
 
