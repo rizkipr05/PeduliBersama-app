@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import api from "@/services/api";
+import { login } from "@/services/auth";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -9,16 +9,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await api.post("/auth/login", form);
-      localStorage.setItem(
-  "token",
-  res.data.access_token
-);
-
-localStorage.setItem(
-  "user",
-  JSON.stringify(res.data.user)
-);
+      await login(form);
       router.push("/dashboard");
     } catch (err) {
       alert("Login gagal");

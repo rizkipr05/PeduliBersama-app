@@ -1,17 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { logout } from "@/services/auth";
 
 export default function Navbar() {
 
   const router = useRouter();
 
   const handleLogout = () => {
-
-    localStorage.removeItem("token");
-
-    localStorage.removeItem("user");
-
+    logout();
     router.push("/login");
   };
 
