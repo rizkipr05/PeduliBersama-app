@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { createHmac, pbkdf2Sync, randomBytes, timingSafeEqual } from 'crypto';
@@ -11,6 +12,9 @@ import { LoginDto } from './dto/login.dto';
 import { AdminLoginDto } from './dto/admin-login.dto';
 import { PrismaService } from '../prisma.service';
 import { TokenDto } from './dto/token.dto';
+import { CreateAuthDto } from './dto/create-auth.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
+import { FindOneUserDto } from './dto/find-one-user.dto';
 
 type AuthTokenPayload = {
   sub: number;
@@ -126,6 +130,113 @@ export class AuthService {
     };
   }
 
+  async createUser(createAuthDto: CreateAuthDto) {
+    this.assertAdminToken(createAuthDto.token);
+
+    const name = createAuthDto.name?.trim();
+    const email = createAuthDto.email?.trim().toLowerCase();
+    const password = createAuthDto.password;
+    const role = createAuthDto.role ?? Role.USER;
+
+    if (!email || !password) {
+      throw new BadRequestException('Email and password are required');
+    }
+
+    await this.ensureEmailAvailable(email);
+
+    const user = await this.prisma.user.create({
+      data: {
+        name,
+        email,
+        password: this.hashPassword(password),
+        role,
+      },
+    });
+
+    return {
+      status: 'success',
+      message: 'User created successfully',
+      data: this.sanitizeUser(user),
+    };
+  }
+
+  async findAllUsers(tokenDto: TokenDto) {
+    this.assertAdminToken(tokenDto.token);
+
+    const users = await this.prisma.user.findMany({
+      orderBy: { id: 'asc' },
+    });
+
+    return {
+      status: 'success',
+      message: 'Users fetched successfully',
+      data: users.map((user) => this.sanitizeUser(user)),
+    };
+  }
+
+  async findOneUser(findOneUserDto: FindOneUserDto) {
+    this.assertAdminToken(findOneUserDto.token);
+
+    const user = await this.getUserById(findOneUserDto.id);
+
+    return {
+      status: 'success',
+      message: 'User fetched successfully',
+      data: this.sanitizeUser(user),
+    };
+  }
+
+  async updateUser(id: number, updateAuthDto: UpdateAuthDto) {
+    this.assertAdminToken(updateAuthDto.token);
+    await this.getUserById(id);
+
+    const email = updateAuthDto.email?.trim().toLowerCase();
+    if (email) {
+      await this.ensureEmailAvailable(email, id);
+    }
+
+    const data = {
+      ...(updateAuthDto.name !== undefined
+        ? { name: updateAuthDto.name?.trim() || null }
+        : {}),
+      ...(email ? { email } : {}),
+      ...(updateAuthDto.password
+        ? { password: this.hashPassword(updateAuthDto.password) }
+        : {}),
+      ...(updateAuthDto.role ? { role: updateAuthDto.role } : {}),
+    };
+
+    const user = await this.prisma.user.update({
+      where: { id },
+      data,
+    });
+
+    return {
+      status: 'success',
+      message: 'User updated successfully',
+      data: this.sanitizeUser(user),
+    };
+  }
+
+  async removeUser(id: number, findOneUserDto: FindOneUserDto) {
+    const admin = this.assertAdminToken(findOneUserDto.token);
+    const user = await this.getUserById(id);
+
+    if (admin.sub === id) {
+      throw new BadRequestException('Admin cannot delete their own account');
+    }
+
+    await this.prisma.user.delete({
+      where: { id },
+    });
+
+    return {
+      status: 'success',
+      message: 'User deleted successfully',
+      data: this.sanitizeUser(user),
+    };
+  }
+
   private async authenticateUser(email?: string, password?: string) {
     if (!email || !password) {
       throw new BadRequestException('Email and password are required');
@@ -141,6 +252,60 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  private async getUserById(id?: number) {
+    if (!id) {
+      throw new BadRequestException('User id is required');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  private async ensureEmailAvailable(email: string, ignoreUserId?: number) {
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser && existingUser.id !== ignoreUserId) {
+      throw new ConflictException('Email is already registered');
+    }
+  }
+
+  private sanitizeUser(user: {
+    id: number;
+    name: string | null;
+    email: string;
+    role: Role;
+    createdAt?: Date;
+    updatedAt?: Date;
+  }) {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      ...(user.createdAt ? { createdAt: user.createdAt } : {}),
+      ...(user.updatedAt ? { updatedAt: user.updatedAt } : {}),
+    };
+  }
+
+  private assertAdminToken(token?: string) {
+    const payload = this.decodeAndVerifyToken(token);
+
+    if (payload.role !== Role.ADMIN) {
+      throw new UnauthorizedException('Admin access required');
+    }
+
+    return payload;
   }
 
   private hashPassword(password: string) {
