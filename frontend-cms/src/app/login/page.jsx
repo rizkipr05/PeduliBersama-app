@@ -10,7 +10,15 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await api.post("/auth/login", form);
-      localStorage.setItem("token", res.data.access_token);
+      localStorage.setItem(
+  "token",
+  res.data.access_token
+);
+
+localStorage.setItem(
+  "user",
+  JSON.stringify(res.data.user)
+);
       router.push("/dashboard");
     } catch (err) {
       alert("Login gagal");

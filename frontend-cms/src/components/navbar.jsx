@@ -1,17 +1,26 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+
   const router = useRouter();
 
   const handleLogout = () => {
+
     localStorage.removeItem("token");
+
+    localStorage.removeItem("user");
+
     router.push("/login");
   };
 
   return (
     <div className="h-16 bg-white shadow flex justify-between items-center px-6">
-      <h1 className="font-semibold">Admin Panel</h1>
+
+      <h1 className="font-semibold">
+        Admin Panel
+      </h1>
 
       <button
         onClick={handleLogout}
@@ -19,6 +28,7 @@ export default function Navbar() {
       >
         Logout
       </button>
+
     </div>
   );
 }
