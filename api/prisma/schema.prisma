@@ -11,6 +11,11 @@ enum Role {
   ADMIN
 }
 
+enum DisasterStatus {
+  ACTIVE
+  COMPLETED
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -19,4 +24,41 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Disaster {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String?
+  location    String?
+  status      DisasterStatus  @default(ACTIVE)
+  photos      DisasterPhoto[]
+  needs       DisasterNeed[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model DisasterPhoto {
+  id         Int      @id @default(autoincrement())
+  disasterId Int
+  photoUrl   String
+  caption    String?
+  disaster   Disaster @relation(fields: [disasterId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([disasterId])
+}
+
+model DisasterNeed {
+  id         Int      @id @default(autoincrement())
+  disasterId Int
+  itemName   String
+  quantity   Int?
+  unit       String?
+  notes      String?
+  disaster   Disaster @relation(fields: [disasterId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([disasterId])
 }
