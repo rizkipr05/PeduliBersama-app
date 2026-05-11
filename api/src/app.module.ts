@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { KategoriModule } from './kategori/kategori.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma.module';
+import { BencanaModule } from './bencana/bencana.module';
 
 @Module({
-  imports: [KategoriModule, AuthModule, PrismaModule],
+  imports: [KategoriModule, AuthModule, PrismaModule, BencanaModule],
   controllers: [AppController],
   providers: [AppService],
 })
