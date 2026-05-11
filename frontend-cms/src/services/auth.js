@@ -1,16 +1,23 @@
-import api from "./api";
-
 export const login = async (data) => {
-  const res = await api.post("/auth/login", data);
-  localStorage.setItem("token", res.data.access_token);
-  localStorage.setItem("user", JSON.stringify(res.data.user));
-  document.cookie = `token=${res.data.access_token}; path=/; max-age=86400; samesite=lax`;
-  return res.data;
+  const user = {
+    id: 1,
+    name: data?.email || "Admin",
+    email: data?.email || "admin@local.test",
+    role: "admin",
+  };
+
+  const result = {
+    access_token: "dummy-local-token",
+    user,
+  };
+
+  localStorage.setItem("token", result.access_token);
+  localStorage.setItem("user", JSON.stringify(result.user));
+
+  return result;
 };
 
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
-  document.cookie =
-    "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; samesite=lax";
 };

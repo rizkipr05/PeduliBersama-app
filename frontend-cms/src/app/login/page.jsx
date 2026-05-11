@@ -1,16 +1,25 @@
 "use client";
-import { useState } from "react";
-import { login } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { login } from "@/services/auth";
 
 export default function Login() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      router.replace("/dashboard");
+    }
+  }, [router]);
+
   const handleLogin = async () => {
     try {
       await login(form);
-      router.push("/dashboard");
+      router.replace("/dashboard");
     } catch (err) {
       alert("Login gagal");
     }
