@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { AdminLoginDto } from './dto/admin-login.dto';
+import { TokenDto } from './dto/token.dto';
 
 @Controller()
 export class AuthController {
@@ -22,5 +23,15 @@ export class AuthController {
   @MessagePattern('adminLogin')
   adminLogin(@Payload() adminLoginDto: AdminLoginDto) {
     return this.authService.adminLogin(adminLoginDto);
+  }
+
+  @MessagePattern('logout')
+  logout(@Payload() tokenDto: TokenDto) {
+    return this.authService.logout(tokenDto);
+  }
+
+  @MessagePattern('validateToken')
+  validateToken(@Payload() tokenDto: TokenDto) {
+    return this.authService.validateToken(tokenDto);
   }
 }
