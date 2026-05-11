@@ -1,4 +1,16 @@
 import api from "./api";
 
-export const getDonations = () => api.get("/donations");
-export const verifyDonation = (id) => api.patch(`/donations/${id}/verify`);
+// GET ALL DONATIONS
+export const getDonations = async () => {
+  return await api.get("/donations");
+};
+
+// VERIFY DONATION
+export const verifyDonation = async (id) => {
+  return await api.patch(`/donations/${id}/verify`);
+};
+
+// REJECT DONATION
+export const rejectDonation = async (id) => {
+  return await api.patch(`/donations/${id}/reject`);
+};
