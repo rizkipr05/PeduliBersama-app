@@ -373,7 +373,9 @@ export class AuthService {
     }
 
     const expectedSignature = this.sign(`${encodedHeader}.${encodedPayload}`);
-    if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+    if (
+      !timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
+    ) {
       throw new UnauthorizedException('Invalid token signature');
     }
 
