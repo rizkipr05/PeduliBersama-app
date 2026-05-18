@@ -96,8 +96,14 @@ export class BencanaService {
       description?: string | null;
       location?: string | null;
       status?: DisasterStatus;
-      photos?: { deleteMany: Record<string, never>; createMany?: { data: DisasterPhotoInput[] } };
-      needs?: { deleteMany: Record<string, never>; createMany?: { data: DisasterNeedInput[] } };
+      photos?: {
+        deleteMany: Record<string, never>;
+        createMany?: { data: DisasterPhotoInput[] };
+      };
+      needs?: {
+        deleteMany: Record<string, never>;
+        createMany?: { data: DisasterNeedInput[] };
+      };
     } = {};
 
     if (updateBencanaDto.title !== undefined) {
@@ -124,7 +130,11 @@ export class BencanaService {
       data.photos = {
         deleteMany: {},
         ...(updateBencanaDto.photos.length > 0
-          ? { createMany: { data: this.normalizePhotos(updateBencanaDto.photos) } }
+          ? {
+              createMany: {
+                data: this.normalizePhotos(updateBencanaDto.photos),
+              },
+            }
           : {}),
       };
     }
@@ -133,7 +143,9 @@ export class BencanaService {
       data.needs = {
         deleteMany: {},
         ...(updateBencanaDto.needs.length > 0
-          ? { createMany: { data: this.normalizeNeeds(updateBencanaDto.needs) } }
+          ? {
+              createMany: { data: this.normalizeNeeds(updateBencanaDto.needs) },
+            }
           : {}),
       };
     }
