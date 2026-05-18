@@ -184,9 +184,9 @@ describe('BencanaService', () => {
       data: { sub: 2, role: Role.USER },
     });
 
-    await expect(service.findAll({ token: 'user-token' })).rejects.toBeInstanceOf(
-      UnauthorizedException,
-    );
+    await expect(
+      service.findAll({ token: 'user-token' }),
+    ).rejects.toBeInstanceOf(UnauthorizedException);
   });
 
   it('throws when disaster is missing', async () => {
