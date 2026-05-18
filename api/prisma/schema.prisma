@@ -16,14 +16,21 @@ enum DisasterStatus {
   COMPLETED
 }
 
+enum DonationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
   password  String
   name      String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role      Role       @default(USER)
+  donations Donation[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Disaster {
@@ -34,6 +41,7 @@ model Disaster {
   status      DisasterStatus  @default(ACTIVE)
   photos      DisasterPhoto[]
   needs       DisasterNeed[]
+  donations   Donation[]
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 }
@@ -60,5 +68,26 @@ model DisasterNeed {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@index([disasterId])
+}
+
+model Donation {
+  id            Int            @id @default(autoincrement())
+  userId        Int
+  disasterId    Int
+  nominal       Float
+  paymentMethod String
+  paymentProof  String?
+  snapToken     String?
+  paymentUrl    String?
+  status        DonationStatus @default(PENDING)
+  
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  disaster      Disaster       @relation(fields: [disasterId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([userId])
   @@index([disasterId])
 }
