@@ -95,7 +95,6 @@ export class AuthController {
 
   @MessagePattern('createUser')
   createUser(@Payload() createAuthDto: CreateAuthDto) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.authService.createUser(createAuthDto);
   }
 
