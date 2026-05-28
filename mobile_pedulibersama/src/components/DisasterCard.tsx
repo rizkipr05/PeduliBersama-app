@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
+import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
 import { Disaster } from '../types';
 
