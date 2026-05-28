@@ -15,6 +15,6 @@ const HeroImageBanner = () => {
 
 const styles = StyleSheet.create({
     container: { marginHorizontal: Spacing.md, marginBottom: Spacing.xl },
-    image: { width: '100%', height: 180, backgroundColor: '#E5E7EB' },
+    image: { width: '100%', height: 180, borderRadius: 16, backgroundColor: '#E5E7EB' },
 });
 export default HeroImageBanner;
