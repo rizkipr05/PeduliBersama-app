@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { Colors, Spacing } from '../theme';
 import SearchBar from '../components/SearchBar';
 import HomeHeader from '../components/HomeHeader';
@@ -8,12 +8,24 @@ import AllDisastersSection from '../components/AllDisastersSection';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1500);
+    };
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView
                 style={styles.container}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.scrollContent}>
+                contentContainerStyle={styles.scrollContent}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[Colors.primary]} />
+                }>
                 
                 <HomeHeader />
 
