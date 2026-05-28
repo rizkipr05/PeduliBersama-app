@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 import ProgressBar from './ProgressBar';
+import { formatRupiah } from '../utils/format';
 
 interface DisasterCardProps {
     title: string;
     location: string;
     imageUrl: string;
     progress: number;
-    collectedAmount: string;
+    collectedAmount: number;
     isEmergency?: boolean;
     onPress?: () => void;
     onDonate?: () => void;
@@ -53,7 +54,7 @@ const DisasterCard: React.FC<DisasterCardProps> = ({
                 </View>
 
                 <View style={styles.footerRow}>
-                    <Text style={styles.amount}>{collectedAmount}</Text>
+                    <Text style={styles.amount}>{formatRupiah(collectedAmount)}</Text>
                     <TouchableOpacity style={styles.donateButton} onPress={onDonate}>
                         <Text style={styles.donateButtonText}>Donasi</Text>
                     </TouchableOpacity>
