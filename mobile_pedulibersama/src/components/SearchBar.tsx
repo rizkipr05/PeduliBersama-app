@@ -3,10 +3,17 @@ import { View, TextInput, StyleSheet, TextInputProps, TouchableOpacity } from 'r
 import { Search, X } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
+/**
+ * Props untuk komponen SearchBar, mewarisi semua props TextInput standar dari React Native.
+ */
 interface SearchBarProps extends TextInputProps {
     placeholder?: string;
 }
 
+/**
+ * Komponen input pencarian khusus dengan ikon kaca pembesar di sebelah kiri.
+ * Menyediakan state teks internal dan tombol (X) untuk menghapus input dengan cepat.
+ */
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Cari bencana...', ...props }) => {
     const [searchText, setSearchText] = useState('');
 
