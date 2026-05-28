@@ -6,6 +6,7 @@ import { Colors, Spacing } from '../theme';
 
 import FormHeader from '../components/FormHeader';
 import DonationSummaryCard from '../components/DonationSummaryCard';
+import NominalSelector from '../components/NominalSelector';
 
 const DUMMY_DETAIL = {
     imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600',
@@ -16,6 +17,7 @@ const DUMMY_DETAIL = {
 
 const FormDonasiScreen = () => {
     const navigation = useNavigation();
+    const [amount, setAmount] = useState<number>(10000);
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -27,6 +29,7 @@ const FormDonasiScreen = () => {
                     location={DUMMY_DETAIL.location}
                     isEmergency={DUMMY_DETAIL.isEmergency}
                 />
+                <NominalSelector onSelect={setAmount} />
             </ScrollView>
         </SafeAreaView>
     );
