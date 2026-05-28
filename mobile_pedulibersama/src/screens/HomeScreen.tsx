@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Colors, Spacing, Typography } from '../theme';
 import SearchBar from '../components/SearchBar';
-import DisasterCard from '../components/DisasterCard';
 import DisasterListItem from '../components/DisasterListItem';
 import HomeHeader from '../components/HomeHeader';
-import { DUMMY_EMERGENCY_DISASTERS, DUMMY_ALL_DISASTERS } from '../services/mockData';
+import EmergencySection from '../components/EmergencySection';
+import { DUMMY_ALL_DISASTERS } from '../services/mockData';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
@@ -23,32 +23,7 @@ const HomeScreen = () => {
                     <SearchBar />
                 </View>
 
-                {/* Bencana Darurat Section */}
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>Bencana Darurat</Text>
-                    <TouchableOpacity>
-                        <Text style={styles.seeAllText}>Lihat Semua</Text>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    horizontal
-                    data={DUMMY_EMERGENCY_DISASTERS}
-                    keyExtractor={item => item.id}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.horizontalList}
-                    renderItem={({ item }) => (
-                        <DisasterCard
-                            title={item.title}
-                            location={item.location}
-                            imageUrl={item.imageUrl}
-                            progress={item.progress}
-                            collectedAmount={item.collectedAmount}
-                            isEmergency={item.isEmergency}
-                            onDonate={() => console.log('Donate to', item.title)}
-                            onPress={() => console.log('Press', item.title)}
-                        />
-                    )}
-                />
+                <EmergencySection />
 
                 {/* Semua Bencana Section */}
                 <View style={[styles.sectionHeader, { marginTop: Spacing.xl }]}>
@@ -105,10 +80,6 @@ const styles = StyleSheet.create({
         ...Typography.caption,
         fontWeight: '600',
         color: Colors.primary,
-    },
-    horizontalList: {
-        paddingHorizontal: Spacing.md,
-        paddingBottom: Spacing.md,
     },
     verticalList: {
         paddingHorizontal: Spacing.md,
