@@ -57,9 +57,9 @@ const DonationProgressBox: React.FC<DonationProgressBoxProps> = ({ disaster }) =
 };
 
 const styles = StyleSheet.create({
-    card: { backgroundColor: '#FFFFFF', borderRadius: 24, padding: Spacing.lg, marginTop: -40, marginHorizontal: Spacing.md, shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
-    badge: { alignSelf: 'flex-start', backgroundColor: '#E0F2FE', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, marginBottom: Spacing.sm },
-    badgeText: { ...Typography.caption, color: Colors.primary, fontWeight: '700', fontSize: 10 },
+    card: { backgroundColor: '#FFFFFF', borderRadius: 24, padding: Spacing.lg, marginTop: -60, marginHorizontal: Spacing.md, shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
+    badge: { alignSelf: 'flex-start', backgroundColor: '#D1FAE5', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, marginBottom: Spacing.sm },
+    badgeText: { ...Typography.caption, color: '#059669', fontWeight: '700', fontSize: 10 },
     title: { ...Typography.h2, color: Colors.textPrimary, marginBottom: Spacing.sm },
     row: { flexDirection: 'row', marginBottom: Spacing.md },
     iconText: { flexDirection: 'row', alignItems: 'center' },
