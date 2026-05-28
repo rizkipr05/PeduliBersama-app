@@ -2,12 +2,19 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Colors } from '../theme';
 
+/**
+ * Komponen ProgressBar untuk menampilkan progres visual target donasi.
+ */
 interface ProgressBarProps {
     progress: number; // 0 to 1
     color?: string;
     height?: number;
 }
 
+/**
+ * Menampilkan bar horizontal yang merepresentasikan persentase ketercapaian donasi.
+ * Nilai progress akan otomatis dibatasi (clamped) secara aman di antara 0 dan 1.
+ */
 const ProgressBar: React.FC<ProgressBarProps> = ({
     progress,
     color = Colors.primary,
