@@ -53,7 +53,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             const res = await authApi.login({ email, password });
             if (res.data && res.data.access_token) {
                 await saveToken(res.data.access_token);
-                // navigation.replace('Main') // TODO: Uncomment setelah MainNavigator dibuat
+                navigation.replace('Main');
                 Alert.alert('Sukses', 'Login berhasil!');
             }
         } catch (error: any) {

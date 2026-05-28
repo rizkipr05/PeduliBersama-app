@@ -5,6 +5,7 @@ import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
+import MainNavigator from './MainNavigator';
 
 export type RootStackParamList = {
     Splash: undefined;
@@ -36,6 +37,7 @@ const AppNavigator: React.FC = () => {
                     component={RegisterScreen}
                     options={{ animation: 'slide_from_right' }}
                 />
+                <Stack.Screen name="Main" component={MainNavigator} />
             </Stack.Navigator>
         </NavigationContainer>
     );
