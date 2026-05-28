@@ -7,6 +7,10 @@ import EmergencySection from '../components/EmergencySection';
 import AllDisastersSection from '../components/AllDisastersSection';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+/**
+ * HomeScreen: Halaman utama aplikasi setelah pengguna berhasil login.
+ * Menampilkan ringkasan sapaan, pencarian, dan daftar bencana (Darurat & Reguler).
+ */
 const HomeScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
 
@@ -30,12 +34,15 @@ const HomeScreen = () => {
                 
                 <HomeHeader />
 
+                {/* AREA PENCARIAN: Tempat pengguna mencari nama atau lokasi bencana */}
                 <View style={styles.searchSection}>
                     <SearchBar />
                 </View>
 
+                {/* AREA BENCANA DARURAT: Menampilkan daftar bencana mendesak secara horizontal (bisa digeser ke samping) */}
                 <EmergencySection />
 
+                {/* AREA SEMUA BENCANA: Menampilkan daftar seluruh donasi secara vertikal (memanjang ke bawah) */}
                 <AllDisastersSection />
 
             </ScrollView>
