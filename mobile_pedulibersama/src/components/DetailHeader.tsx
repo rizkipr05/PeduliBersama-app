@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Platform, StatusBar } from 'react-native';
 import { ArrowLeft, Share2, Heart } from 'lucide-react-native';
 import { Colors } from '../theme';
 
@@ -31,10 +31,12 @@ const DetailHeader: React.FC<DetailHeaderProps> = ({ imageUrl, onBack, onShare, 
     );
 };
 
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 44 : StatusBar.currentHeight || 24;
+
 const styles = StyleSheet.create({
-    container: { height: 300, position: 'relative' },
+    container: { height: 320, position: 'relative' },
     image: { width: '100%', height: '100%', backgroundColor: '#E5E7EB' },
-    topBar: { position: 'absolute', top: 40, left: 16, right: 16, flexDirection: 'row', justifyContent: 'space-between' },
+    topBar: { position: 'absolute', top: STATUSBAR_HEIGHT + 16, left: 16, right: 16, flexDirection: 'row', justifyContent: 'space-between' },
     rightIcons: { flexDirection: 'row' },
     iconButton: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.9)', justifyContent: 'center', alignItems: 'center' },
 });
