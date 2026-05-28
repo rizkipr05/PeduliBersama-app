@@ -42,7 +42,12 @@ const FormDonasiScreen = () => {
                 style={styles.flex} 
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             >
-                <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                <ScrollView 
+                    contentContainerStyle={styles.scrollContainer} 
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                    keyboardDismissMode="on-drag"
+                >
                 <DonationSummaryCard 
                     imageUrl={DUMMY_DETAIL.imageUrl}
                     title={DUMMY_DETAIL.title}
