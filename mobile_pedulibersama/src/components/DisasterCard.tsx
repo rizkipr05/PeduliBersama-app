@@ -2,16 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
-import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
+import { Disaster } from '../types';
 
-interface DisasterCardProps {
-    title: string;
-    location: string;
-    imageUrl: string;
-    progress: number;
-    collectedAmount: number;
-    isEmergency?: boolean;
+interface DisasterCardProps extends Disaster {
     onPress?: () => void;
     onDonate?: () => void;
 }

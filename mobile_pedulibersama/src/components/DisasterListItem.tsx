@@ -2,15 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
-import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
+import { Disaster } from '../types';
 
-interface DisasterListItemProps {
-    title: string;
-    location: string;
-    imageUrl: string;
-    progress: number;
-    collectedAmount: number;
+interface DisasterListItemProps extends Disaster {
     onPress?: () => void;
 }
 
