@@ -6,6 +6,11 @@ interface AboutDisasterProps {
     description: string;
 }
 
+/**
+ * Komponen AboutDisaster:
+ * Menampilkan deskripsi bencana. Memiliki state `expanded` untuk
+ * memotong teks yang terlalu panjang (truncate) dan menampilkan tombol 'Selengkapnya'.
+ */
 const AboutDisaster: React.FC<AboutDisasterProps> = ({ description }) => {
     const [expanded, setExpanded] = useState(false);
 
