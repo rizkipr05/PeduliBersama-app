@@ -38,6 +38,7 @@ const AppNavigator: React.FC = () => {
                     name="Register"
                     component={RegisterScreen}
                     options={{ animation: 'slide_from_right' }}
+                />
                 <Stack.Screen name="Main" component={MainNavigator} />
                 <Stack.Screen name="DetailBencana" component={DetailBencanaScreen} />
             </Stack.Navigator>
