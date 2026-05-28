@@ -7,11 +7,13 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Alert,
 } from 'react-native';
 import { Mail, Lock } from 'lucide-react-native';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import { Colors, Spacing, Typography } from '../theme';
+import { authApi, saveToken } from '../services/api';
 
 interface LoginScreenProps {
     navigation: any;
@@ -23,7 +25,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const newErrors: { email?: string; password?: string } = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -46,11 +48,20 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
         setErrors({});
 
-        // TODO Week 1: POST /auth/login
-        // const res = await authApi.login({ email, password })
-        // await saveToken(res.data.access_token)
-        // navigation.replace('Main')
-        console.log('login:', { email, password });
+        setLoading(true);
+        try {
+            const res = await authApi.login({ email, password });
+            if (res.data && res.data.access_token) {
+                await saveToken(res.data.access_token);
+                // navigation.replace('Main') // TODO: Uncomment setelah MainNavigator dibuat
+                Alert.alert('Sukses', 'Login berhasil!');
+            }
+        } catch (error: any) {
+            const errorMsg = error.response?.data?.message || 'Gagal login, periksa kembali email dan password Anda.';
+            Alert.alert('Gagal Login', Array.isArray(errorMsg) ? errorMsg[0] : errorMsg);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

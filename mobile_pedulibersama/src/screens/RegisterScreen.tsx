@@ -7,11 +7,13 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Alert,
 } from 'react-native';
 import { User, Mail, Lock, ChevronLeft } from 'lucide-react-native';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import { Colors, Spacing, Typography } from '../theme';
+import { authApi } from '../services/api';
 
 interface RegisterScreenProps {
     navigation: any;
@@ -39,7 +41,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
         }
     };
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         const newErrors: typeof errors = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -67,10 +69,17 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
 
         setErrors({});
 
-        // TODO Week 1: POST /auth/register
-        // await authApi.register({ name: form.fullName, email: form.email, password: form.password })
-        // navigation.navigate('Login')
-        console.log('register:', form);
+        setLoading(true);
+        try {
+            await authApi.register({ name: form.fullName, email: form.email, password: form.password });
+            Alert.alert('Sukses', 'Registrasi berhasil! Silakan login.');
+            navigation.navigate('Login');
+        } catch (error: any) {
+            const errorMsg = error.response?.data?.message || 'Registrasi gagal, silakan coba lagi.';
+            Alert.alert('Gagal Registrasi', Array.isArray(errorMsg) ? errorMsg[0] : errorMsg);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
