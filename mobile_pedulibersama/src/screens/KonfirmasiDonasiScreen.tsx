@@ -11,6 +11,14 @@ import PaymentWarningAlert from '../components/PaymentWarningAlert';
 import HeroImageBanner from '../components/HeroImageBanner';
 import ConfirmationBottomBar from '../components/ConfirmationBottomBar';
 
+const DUMMY_ORDER = {
+    title: 'Bantuan Kemanusiaan: Korban Gempa Sumedang',
+    amount: 150000,
+    paymentMethod: 'BCA Virtual Account',
+    donatorName: 'Achmad Pratama',
+    isAnonymous: false,
+};
+
 const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
 
@@ -20,18 +28,18 @@ const KonfirmasiDonasiScreen = () => {
             <StepperIndicator currentStep={2} />
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                 <DonationSummaryDetail 
-                    title="Bantuan Kemanusiaan: Korban Gempa Sumedang"
-                    amount={150000}
-                    paymentMethod="BCA Virtual Account"
-                    donatorName="Achmad Pratama"
-                    isAnonymous={false}
+                    title={DUMMY_ORDER.title}
+                    amount={DUMMY_ORDER.amount}
+                    paymentMethod={DUMMY_ORDER.paymentMethod}
+                    donatorName={DUMMY_ORDER.donatorName}
+                    isAnonymous={DUMMY_ORDER.isAnonymous}
                 />
                 <PaymentWarningAlert />
                 <HeroImageBanner />
             </ScrollView>
 
             <ConfirmationBottomBar 
-                totalAmount={150000}
+                totalAmount={DUMMY_ORDER.amount}
                 onCancel={() => navigation.goBack()}
                 onPay={() => {}}
             />
