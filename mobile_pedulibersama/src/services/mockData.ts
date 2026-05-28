@@ -5,7 +5,7 @@ export const DUMMY_EMERGENCY_DISASTERS = [
         location: 'Karawang, Jawa Barat',
         imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600&auto=format&fit=crop',
         progress: 0.8,
-        collectedAmount: 'Rp 45.2M',
+        collectedAmount: 45200000000,
         isEmergency: true,
     },
     {
@@ -14,7 +14,7 @@ export const DUMMY_EMERGENCY_DISASTERS = [
         location: 'Lumajang, Jawa Timur',
         imageUrl: 'https://images.unsplash.com/photo-1644059437148-3721e78eb551?q=80&w=600&auto=format&fit=crop',
         progress: 0.4,
-        collectedAmount: 'Rp 12.6M',
+        collectedAmount: 12600000000,
         isEmergency: true,
     },
 ];
@@ -26,7 +26,7 @@ export const DUMMY_ALL_DISASTERS = [
         location: 'NTT, Indonesia',
         imageUrl: 'https://images.unsplash.com/photo-1585806655611-396a84f509e5?q=80&w=600&auto=format&fit=crop',
         progress: 0.6,
-        collectedAmount: 'Rp 840.000.000',
+        collectedAmount: 840000000,
     },
     {
         id: '4',
@@ -34,7 +34,7 @@ export const DUMMY_ALL_DISASTERS = [
         location: 'Bogor, Jawa Barat',
         imageUrl: 'https://images.unsplash.com/photo-1563242131-4876b33454b8?q=80&w=600&auto=format&fit=crop',
         progress: 0.3,
-        collectedAmount: 'Rp 125.500.000',
+        collectedAmount: 125500000,
     },
     {
         id: '5',
@@ -42,6 +42,6 @@ export const DUMMY_ALL_DISASTERS = [
         location: 'Sleman, DIY',
         imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=600&auto=format&fit=crop',
         progress: 0.9,
-        collectedAmount: 'Rp 45.000.000',
+        collectedAmount: 45000000,
     },
 ];
