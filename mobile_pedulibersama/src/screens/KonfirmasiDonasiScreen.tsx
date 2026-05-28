@@ -9,6 +9,7 @@ import StepperIndicator from '../components/StepperIndicator';
 import DonationSummaryDetail from '../components/DonationSummaryDetail';
 import PaymentWarningAlert from '../components/PaymentWarningAlert';
 import HeroImageBanner from '../components/HeroImageBanner';
+import ConfirmationBottomBar from '../components/ConfirmationBottomBar';
 
 const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
@@ -28,6 +29,12 @@ const KonfirmasiDonasiScreen = () => {
                 <PaymentWarningAlert />
                 <HeroImageBanner />
             </ScrollView>
+
+            <ConfirmationBottomBar 
+                totalAmount={150000}
+                onCancel={() => navigation.goBack()}
+                onPay={() => {}}
+            />
         </SafeAreaView>
     );
 };
