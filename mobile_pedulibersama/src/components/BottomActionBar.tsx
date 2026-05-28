@@ -3,6 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Bookmark, Heart } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
+/**
+ * Komponen BottomActionBar:
+ * Berada di posisi fixed di bagian bawah layar.
+ * Menyediakan aksi utama yaitu menyimpan (bookmark) dan melakukan donasi.
+ */
 const BottomActionBar = () => {
     return (
         <View style={styles.container}>
