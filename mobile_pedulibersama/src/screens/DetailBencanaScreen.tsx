@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Colors, Spacing } from '../theme';
 import DetailHeader from '../components/DetailHeader';
 import DonationProgressBox from '../components/DonationProgressBox';
@@ -7,6 +9,9 @@ import AboutDisaster from '../components/AboutDisaster';
 import NeedsChip from '../components/NeedsChip';
 import FundraiserProfile from '../components/FundraiserProfile';
 import BottomActionBar from '../components/BottomActionBar';
+import { RootStackParamList } from '../navigation/AppNavigator';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'DetailBencana'>;
 
 const DUMMY_DETAIL = {
     id: '1',
@@ -28,6 +33,8 @@ const DUMMY_DETAIL = {
  * Tersusun dari beberapa lapis komponen kecil (Header, Progress, Detail, Penggalang Dana).
  */
 const DetailBencanaScreen = () => {
+    const navigation = useNavigation<NavigationProp>();
+
     return (
         <View style={styles.container}>
             <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
@@ -52,7 +59,7 @@ const DetailBencanaScreen = () => {
             </ScrollView>
             
             {/* 6. Aksi Bawah: Tombol donasi hijau yang posisinya selalu diam (fixed) di dasar layar */}
-            <BottomActionBar />
+            <BottomActionBar onDonate={() => navigation.navigate('FormDonasi')} />
         </View>
     );
 };

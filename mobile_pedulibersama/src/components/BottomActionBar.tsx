@@ -8,13 +8,17 @@ import { Colors, Spacing, Typography } from '../theme';
  * Berada di posisi fixed di bagian bawah layar.
  * Menyediakan aksi utama yaitu menyimpan (bookmark) dan melakukan donasi.
  */
-const BottomActionBar = () => {
+interface BottomActionBarProps {
+    onDonate?: () => void;
+}
+
+const BottomActionBar: React.FC<BottomActionBarProps> = ({ onDonate }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.bookmarkButton}>
                 <Bookmark size={20} color={Colors.primary} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.donateButton}>
+            <TouchableOpacity style={styles.donateButton} onPress={onDonate}>
                 <Text style={styles.donateText}>Donasi Sekarang</Text>
                 <Heart size={16} color="#FFFFFF" style={{ marginLeft: 8 }} />
             </TouchableOpacity>
