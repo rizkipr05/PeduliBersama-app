@@ -4,6 +4,7 @@ import { MapPin, Calendar, Users, Clock } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
+import { getDaysLeft } from '../utils/date';
 import { Disaster } from '../types';
 
 interface DonationProgressBoxProps {
@@ -48,7 +49,7 @@ const DonationProgressBox: React.FC<DonationProgressBoxProps> = ({ disaster }) =
                     </View>
                     <View style={styles.iconText}>
                         <Clock size={14} color={Colors.primary} />
-                        <Text style={styles.footerText}>12 Hari Lagi</Text>
+                        <Text style={styles.footerText}>{getDaysLeft(disaster.endDate)} Hari Lagi</Text>
                     </View>
                 </View>
             </View>
