@@ -23,21 +23,35 @@ const DUMMY_DETAIL = {
     isEmergency: true,
 };
 
+/**
+ * DetailBencanaScreen: Halaman yang menampilkan informasi lengkap dari sebuah bencana.
+ * Tersusun dari beberapa lapis komponen kecil (Header, Progress, Detail, Penggalang Dana).
+ */
 const DetailBencanaScreen = () => {
     return (
         <View style={styles.container}>
             <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
             <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+                {/* 1. Header: Menampilkan gambar besar dan tombol panah kembali */}
                 <DetailHeader 
                     imageUrl={DUMMY_DETAIL.imageUrl} 
                     onBack={() => console.log('Back')} 
                 />
+                
+                {/* 2. Progress Box: Kartu putih melayang berisi target dan nominal yang sudah terkumpul */}
                 <DonationProgressBox disaster={DUMMY_DETAIL} />
+                
+                {/* 3. Tentang Bencana: Paragraf penjelasan kejadian yang bisa di-expand */}
                 <AboutDisaster description={DUMMY_DETAIL.description} />
+                
+                {/* 4. Kebutuhan: Daftar barang yang paling dibutuhkan (makanan, medis, dll) */}
                 <NeedsChip />
+                
+                {/* 5. Profil Penyelenggara: Info lembaga yang bertanggung jawab menggalang dana */}
                 <FundraiserProfile name={DUMMY_DETAIL.fundraiserName} />
             </ScrollView>
             
+            {/* 6. Aksi Bawah: Tombol donasi hijau yang posisinya selalu diam (fixed) di dasar layar */}
             <BottomActionBar />
         </View>
     );
