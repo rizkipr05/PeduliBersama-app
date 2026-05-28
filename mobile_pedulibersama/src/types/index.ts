@@ -5,5 +5,10 @@ export interface Disaster {
     imageUrl: string;
     progress: number;
     collectedAmount: number;
+    targetAmount?: number;
+    endDate?: string;
+    donatorsCount?: number;
+    description?: string;
+    fundraiserName?: string;
     isEmergency?: boolean;
 }
