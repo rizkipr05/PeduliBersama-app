@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing } from '../theme';
@@ -38,7 +38,11 @@ const FormDonasiScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <FormHeader title="Donasi" onBack={() => navigation.goBack()} />
-            <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+            <KeyboardAvoidingView 
+                style={styles.flex} 
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            >
+                <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                 <DonationSummaryCard 
                     imageUrl={DUMMY_DETAIL.imageUrl}
                     title={DUMMY_DETAIL.title}
@@ -58,12 +62,14 @@ const FormDonasiScreen = () => {
                 totalAmount={amount} 
                 onContinue={handleContinue} 
             />
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: Colors.surface, position: 'relative' },
+    flex: { flex: 1 },
     scrollContainer: { padding: Spacing.md, paddingBottom: 100 },
 });
 export default FormDonasiScreen;
