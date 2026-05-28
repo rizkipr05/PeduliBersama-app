@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, StyleSheet, ScrollView, RefreshControl, StatusBar } from 'react-native';
 import { Colors, Spacing } from '../theme';
 import SearchBar from '../components/SearchBar';
 import HomeHeader from '../components/HomeHeader';
@@ -19,6 +19,7 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <StatusBar barStyle="dark-content" backgroundColor={Colors.surface} />
             <ScrollView
                 style={styles.container}
                 showsVerticalScrollIndicator={false}
