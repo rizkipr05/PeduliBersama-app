@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing } from '../theme';
@@ -22,6 +22,14 @@ const DUMMY_ORDER = {
 const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
 
+    const handlePay = () => {
+        Alert.alert(
+            'Donasi Berhasil!',
+            'Terima kasih atas kebaikan Anda. Bantuan akan segera disalurkan.',
+            [{ text: 'OK', onPress: () => (navigation as any).navigate('Main') }]
+        );
+    };
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <FormHeader title="Konfirmasi Donasi" onBack={() => navigation.goBack()} />
@@ -41,7 +49,7 @@ const KonfirmasiDonasiScreen = () => {
             <ConfirmationBottomBar 
                 totalAmount={DUMMY_ORDER.amount}
                 onCancel={() => navigation.goBack()}
-                onPay={() => {}}
+                onPay={handlePay}
             />
         </SafeAreaView>
     );
