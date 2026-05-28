@@ -6,6 +6,7 @@ import { Colors, Spacing } from '../theme';
 
 import FormHeader from '../components/FormHeader';
 import StepperIndicator from '../components/StepperIndicator';
+import DonationSummaryDetail from '../components/DonationSummaryDetail';
 
 const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
@@ -15,6 +16,13 @@ const KonfirmasiDonasiScreen = () => {
             <FormHeader title="Konfirmasi Donasi" onBack={() => navigation.goBack()} />
             <StepperIndicator currentStep={2} />
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                <DonationSummaryDetail 
+                    title="Bantuan Kemanusiaan: Korban Gempa Sumedang"
+                    amount={150000}
+                    paymentMethod="BCA Virtual Account"
+                    donatorName="Achmad Pratama"
+                    isAnonymous={false}
+                />
             </ScrollView>
         </SafeAreaView>
     );
