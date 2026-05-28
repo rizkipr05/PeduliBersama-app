@@ -8,6 +8,7 @@ import OnboardingScreen from '../screens/OnboardingScreen';
 import MainNavigator from './MainNavigator';
 import DetailBencanaScreen from '../screens/DetailBencanaScreen';
 import FormDonasiScreen from '../screens/FormDonasiScreen';
+import KonfirmasiDonasiScreen from '../screens/KonfirmasiDonasiScreen';
 
 export type RootStackParamList = {
     Splash: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
     Main: undefined;
     DetailBencana: { id: string };
     FormDonasi: undefined;
+    KonfirmasiDonasi: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +51,7 @@ const AppNavigator: React.FC = () => {
                 <Stack.Screen name="Main" component={MainNavigator} />
                 <Stack.Screen name="DetailBencana" component={DetailBencanaScreen} />
                 <Stack.Screen name="FormDonasi" component={FormDonasiScreen} />
+                <Stack.Screen name="KonfirmasiDonasi" component={KonfirmasiDonasiScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
