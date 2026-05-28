@@ -3,6 +3,8 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Colors, Spacing } from '../theme';
 import DetailHeader from '../components/DetailHeader';
 import DonationProgressBox from '../components/DonationProgressBox';
+import AboutDisaster from '../components/AboutDisaster';
+import NeedsChip from '../components/NeedsChip';
 
 const DUMMY_DETAIL = {
     id: '1',
@@ -28,6 +30,8 @@ const DetailBencanaScreen = () => {
                     onBack={() => console.log('Back')} 
                 />
                 <DonationProgressBox disaster={DUMMY_DETAIL} />
+                <AboutDisaster description={DUMMY_DETAIL.description} />
+                <NeedsChip />
             </ScrollView>
         </View>
     );
