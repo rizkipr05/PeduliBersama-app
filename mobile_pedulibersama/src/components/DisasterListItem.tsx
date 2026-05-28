@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 import ProgressBar from './ProgressBar';
+import { formatRupiah } from '../utils/format';
 
 interface DisasterListItemProps {
     title: string;
     location: string;
     imageUrl: string;
     progress: number;
-    collectedAmount: string;
+    collectedAmount: number;
     onPress?: () => void;
 }
 
@@ -43,7 +44,7 @@ const DisasterListItem: React.FC<DisasterListItemProps> = ({
 
                 <View style={styles.footerRow}>
                     <Text style={styles.footerLabel}>Terkumpul</Text>
-                    <Text style={styles.amount}>{collectedAmount}</Text>
+                    <Text style={styles.amount}>{formatRupiah(collectedAmount)}</Text>
                 </View>
             </View>
         </TouchableOpacity>
