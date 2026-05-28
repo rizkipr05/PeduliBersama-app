@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Colors, Spacing } from '../theme';
 import DetailHeader from '../components/DetailHeader';
+import DonationProgressBox from '../components/DonationProgressBox';
 
 const DUMMY_DETAIL = {
     id: '1',
@@ -26,6 +27,7 @@ const DetailBencanaScreen = () => {
                     imageUrl={DUMMY_DETAIL.imageUrl} 
                     onBack={() => console.log('Back')} 
                 />
+                <DonationProgressBox disaster={DUMMY_DETAIL} />
             </ScrollView>
         </View>
     );
