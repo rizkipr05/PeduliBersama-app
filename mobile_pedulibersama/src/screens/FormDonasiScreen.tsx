@@ -8,6 +8,8 @@ import FormHeader from '../components/FormHeader';
 import DonationSummaryCard from '../components/DonationSummaryCard';
 import NominalSelector from '../components/NominalSelector';
 import PaymentMethodList from '../components/PaymentMethodList';
+import DonatorInfoForm from '../components/DonatorInfoForm';
+import MessageTextArea from '../components/MessageTextArea';
 
 const DUMMY_DETAIL = {
     imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600',
@@ -20,6 +22,9 @@ const FormDonasiScreen = () => {
     const navigation = useNavigation();
     const [amount, setAmount] = useState<number>(10000);
     const [paymentMethod, setPaymentMethod] = useState<string>('bank');
+    const [donatorName, setDonatorName] = useState('');
+    const [isAnonymous, setIsAnonymous] = useState(false);
+    const [message, setMessage] = useState('');
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -33,6 +38,11 @@ const FormDonasiScreen = () => {
                 />
                 <NominalSelector onSelect={setAmount} />
                 <PaymentMethodList onSelect={setPaymentMethod} />
+                <DonatorInfoForm 
+                    onChangeName={setDonatorName} 
+                    onChangeAnonymous={setIsAnonymous} 
+                />
+                <MessageTextArea onChangeMessage={setMessage} />
             </ScrollView>
         </SafeAreaView>
     );
