@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, TextInputProps } from 'react-native';
-import { Search } from 'lucide-react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, TextInputProps, TouchableOpacity } from 'react-native';
+import { Search, X } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
 interface SearchBarProps extends TextInputProps {
@@ -8,6 +8,8 @@ interface SearchBarProps extends TextInputProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Cari bencana...', ...props }) => {
+    const [searchText, setSearchText] = useState('');
+
     return (
         <View style={styles.container}>
             <Search color={Colors.textMuted} size={20} style={styles.icon} />
@@ -15,8 +17,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Cari bencana...', 
                 style={styles.input}
                 placeholder={placeholder}
                 placeholderTextColor={Colors.textMuted}
+                value={searchText}
+                onChangeText={setSearchText}
                 {...props}
             />
+            {searchText.length > 0 && (
+                <TouchableOpacity onPress={() => setSearchText('')}>
+                    <X color={Colors.textMuted} size={18} />
+                </TouchableOpacity>
+            )}
         </View>
     );
 };
