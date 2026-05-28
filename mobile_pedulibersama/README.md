@@ -1,3 +1,18 @@
+# PeduliBersama Mobile App 🌿
+
+> **🚨 CATATAN PENTING SEBELUM MENJALANKAN APLIKASI 🚨**
+> 
+> Aplikasi Mobile ini saling terhubung dengan sistem Backend API (NestJS). Aplikasi **TIDAK AKAN BERJALAN SEMPURNA** (tidak bisa login/register/ambil data) jika API belum dijalankan.
+> 
+> Pastikan teman tim Backend Anda atau Anda sendiri sudah menjalankan service `api` di direktori root dengan perintah:
+> ```bash
+> cd ../api
+> npm run start:dev
+> ```
+> *(Atau cukup jalankan `docker compose up` dari folder root `PeduliBersama-app-1` sesuai panduan utama).*
+
+---
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
