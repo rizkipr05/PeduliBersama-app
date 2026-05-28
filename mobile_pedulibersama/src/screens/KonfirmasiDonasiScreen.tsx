@@ -7,6 +7,8 @@ import { Colors, Spacing } from '../theme';
 import FormHeader from '../components/FormHeader';
 import StepperIndicator from '../components/StepperIndicator';
 import DonationSummaryDetail from '../components/DonationSummaryDetail';
+import PaymentWarningAlert from '../components/PaymentWarningAlert';
+import HeroImageBanner from '../components/HeroImageBanner';
 
 const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
@@ -23,6 +25,8 @@ const KonfirmasiDonasiScreen = () => {
                     donatorName="Achmad Pratama"
                     isAnonymous={false}
                 />
+                <PaymentWarningAlert />
+                <HeroImageBanner />
             </ScrollView>
         </SafeAreaView>
     );
