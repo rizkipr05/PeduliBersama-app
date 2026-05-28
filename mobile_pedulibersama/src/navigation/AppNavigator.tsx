@@ -6,6 +6,7 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import MainNavigator from './MainNavigator';
+import DetailBencanaScreen from '../screens/DetailBencanaScreen';
 
 export type RootStackParamList = {
     Splash: undefined;
@@ -14,6 +15,7 @@ export type RootStackParamList = {
     Register: undefined;
     ForgotPassword: undefined;
     Main: undefined;
+    DetailBencana: { id: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,8 +38,8 @@ const AppNavigator: React.FC = () => {
                     name="Register"
                     component={RegisterScreen}
                     options={{ animation: 'slide_from_right' }}
-                />
                 <Stack.Screen name="Main" component={MainNavigator} />
+                <Stack.Screen name="DetailBencana" component={DetailBencanaScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
