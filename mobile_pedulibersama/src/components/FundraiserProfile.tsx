@@ -7,6 +7,11 @@ interface FundraiserProfileProps {
     name: string;
 }
 
+/**
+ * Komponen FundraiserProfile:
+ * Menampilkan nama penyelenggara/relawan penggalang dana
+ * beserta lencana verifikasi (CheckCircle).
+ */
 const FundraiserProfile: React.FC<FundraiserProfileProps> = ({ name }) => {
     return (
         <View style={styles.container}>

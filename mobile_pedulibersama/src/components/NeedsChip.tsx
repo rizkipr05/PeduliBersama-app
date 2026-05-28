@@ -3,6 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Utensils, Droplet, Pill } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
+/**
+ * Komponen NeedsChip:
+ * Menampilkan grid ikon kebutuhan logistik (Makanan, Air, Medis).
+ * Siap dihubungkan dengan data dinamis dari API.
+ */
 const NeedsChip = () => {
     return (
         <View style={styles.container}>
