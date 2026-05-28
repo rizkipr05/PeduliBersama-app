@@ -6,6 +6,7 @@ import DonationProgressBox from '../components/DonationProgressBox';
 import AboutDisaster from '../components/AboutDisaster';
 import NeedsChip from '../components/NeedsChip';
 import FundraiserProfile from '../components/FundraiserProfile';
+import BottomActionBar from '../components/BottomActionBar';
 
 const DUMMY_DETAIL = {
     id: '1',
@@ -35,12 +36,14 @@ const DetailBencanaScreen = () => {
                 <NeedsChip />
                 <FundraiserProfile name={DUMMY_DETAIL.fundraiserName} />
             </ScrollView>
+            
+            <BottomActionBar />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: Colors.surface },
+    container: { flex: 1, backgroundColor: Colors.surface, position: 'relative' },
     scrollView: { flex: 1, paddingBottom: 100 },
 });
 export default DetailBencanaScreen;
