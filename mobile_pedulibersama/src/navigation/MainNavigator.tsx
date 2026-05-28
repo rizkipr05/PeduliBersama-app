@@ -7,6 +7,11 @@ import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { Colors } from '../theme';
 
+/**
+ * MainNavigator:
+ * Mengatur sistem navigasi bawah (Bottom Tabs) yang menjadi
+ * menu utama aplikasi (Beranda, Riwayat, Notifikasi, Profil).
+ */
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
