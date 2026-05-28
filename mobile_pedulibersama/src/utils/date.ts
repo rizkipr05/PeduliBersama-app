@@ -1,3 +1,8 @@
+/**
+ * Fungsi getDaysLeft:
+ * Menghitung selisih hari antara tanggal hari ini dan target tanggal berakhir (endDate).
+ * Mengembalikan angka 0 jika tanggal target sudah terlewat (tidak bisa bernilai negatif).
+ */
 export const getDaysLeft = (endDateStr?: string): number => {
     if (!endDateStr) return 0;
     
