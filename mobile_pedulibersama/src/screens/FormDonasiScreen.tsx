@@ -32,7 +32,7 @@ const FormDonasiScreen = () => {
             Alert.alert('Error', 'Minimal donasi adalah Rp 10.000');
             return;
         }
-        Alert.alert('Berhasil', 'Melanjutkan ke pembayaran...');
+        (navigation as any).navigate('KonfirmasiDonasi');
     };
 
     return (
