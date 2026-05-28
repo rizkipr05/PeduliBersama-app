@@ -20,6 +20,11 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+/**
+ * AppNavigator:
+ * Merupakan akar dari seluruh rute navigasi aplikasi (Root Stack).
+ * Menangani siklus transisi dari SplashScreen -> Auth (Login/Register) -> MainApp.
+ */
 const AppNavigator: React.FC = () => {
     const [showSplash, setShowSplash] = useState(true);
 
