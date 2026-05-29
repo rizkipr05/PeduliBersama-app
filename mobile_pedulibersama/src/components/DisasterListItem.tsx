@@ -20,7 +20,7 @@ const DisasterListItem: React.FC<DisasterListItemProps> = ({
 }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Image source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl} style={styles.image} />
 
             <View style={styles.content}>
                 <Text style={styles.title} numberOfLines={1}>

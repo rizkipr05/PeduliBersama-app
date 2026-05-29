@@ -4,7 +4,7 @@ import { ArrowLeft, Share2, Heart } from 'lucide-react-native';
 import { Colors } from '../theme';
 
 interface DetailHeaderProps {
-    imageUrl: string;
+    imageUrl: any;
     onBack: () => void;
     onShare?: () => void;
     onFavorite?: () => void;
@@ -13,7 +13,7 @@ interface DetailHeaderProps {
 const DetailHeader: React.FC<DetailHeaderProps> = ({ imageUrl, onBack, onShare, onFavorite }) => {
     return (
         <View style={styles.container}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Image source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl} style={styles.image} />
             <View style={styles.topBar}>
                 <TouchableOpacity style={styles.iconButton} onPress={onBack}>
                     <ArrowLeft color={Colors.textPrimary} size={24} />

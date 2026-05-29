@@ -6,7 +6,13 @@ import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
 import { Disaster } from '../types';
 
-interface DisasterCardProps extends Disaster {
+interface DisasterCardProps {
+    title: string;
+    location: string;
+    imageUrl: any;
+    progress: number;
+    collectedAmount: number;
+    isEmergency?: boolean;
     onPress?: () => void;
     onDonate?: () => void;
 }
@@ -24,7 +30,7 @@ const DisasterCard: React.FC<DisasterCardProps> = ({
     return (
         <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
             <View style={styles.imageContainer}>
-                <Image source={{ uri: imageUrl }} style={styles.image} />
+                <Image source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl} style={styles.image} />
                 {isEmergency && (
                     <View style={styles.badge}>
                         <Text style={styles.badgeText}>DARURAT</Text>

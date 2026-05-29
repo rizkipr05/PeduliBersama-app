@@ -4,7 +4,7 @@ import { MapPin } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
 interface DonationSummaryCardProps {
-    imageUrl: string;
+    imageUrl: any;
     title: string;
     location: string;
     isEmergency?: boolean;
@@ -13,7 +13,7 @@ interface DonationSummaryCardProps {
 const DonationSummaryCard: React.FC<DonationSummaryCardProps> = ({ imageUrl, title, location, isEmergency }) => {
     return (
         <View style={styles.card}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Image source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl} style={styles.image} />
             <View style={styles.info}>
                 <Text style={styles.badge}>{isEmergency ? 'DARURAT BENCANA' : 'BENCANA'}</Text>
                 <Text style={styles.title} numberOfLines={2}>{title}</Text>

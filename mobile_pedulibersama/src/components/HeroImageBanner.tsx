@@ -6,7 +6,7 @@ const HeroImageBanner = () => {
     return (
         <View style={styles.container}>
             <Image 
-                source={{ uri: 'https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?q=80&w=600' }} 
+                source={require('../assets/OIP.jpg')} 
                 style={styles.image} 
             />
         </View>
