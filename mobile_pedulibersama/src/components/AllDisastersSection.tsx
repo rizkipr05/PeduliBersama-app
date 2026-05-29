@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import DisasterListItem from './DisasterListItem';
 import { DUMMY_ALL_DISASTERS } from '../services/mockData';
 
 const AllDisastersSection = () => {
+    const navigation = useNavigation();
+
     return (
         <>
             <View style={[styles.sectionHeader, { marginTop: Spacing.xl }]}>
@@ -22,7 +25,7 @@ const AllDisastersSection = () => {
                         imageUrl={item.imageUrl}
                         progress={item.progress}
                         collectedAmount={item.collectedAmount}
-                        onPress={() => console.log('Press', item.title)}
+                        onPress={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
                     />
                 ))}
             </View>

@@ -39,7 +39,7 @@ const AppNavigator: React.FC = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Onboarding"
+                initialRouteName="Main"
                 screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Onboarding" component={OnboardingScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />

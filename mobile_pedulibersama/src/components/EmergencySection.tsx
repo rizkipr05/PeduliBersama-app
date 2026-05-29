@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import DisasterCard from './DisasterCard';
 import { DUMMY_EMERGENCY_DISASTERS } from '../services/mockData';
 
 const EmergencySection = () => {
+    const navigation = useNavigation();
+
     return (
         <>
             <View style={styles.sectionHeader}>
@@ -27,8 +30,8 @@ const EmergencySection = () => {
                         progress={item.progress}
                         collectedAmount={item.collectedAmount}
                         isEmergency={item.isEmergency}
-                        onDonate={() => console.log('Donate to', item.title)}
-                        onPress={() => console.log('Press', item.title)}
+                        onDonate={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
+                        onPress={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
                     />
                 )}
             />
