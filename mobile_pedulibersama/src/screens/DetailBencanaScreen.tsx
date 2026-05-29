@@ -17,7 +17,7 @@ const DUMMY_DETAIL = {
     id: '1',
     title: 'Bantuan Banjir Bandang Demak & Kudus',
     location: 'Jawa Tengah',
-    imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600&auto=format&fit=crop',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Jakarta_flood_2013_2.jpg/600px-Jakarta_flood_2013_2.jpg',
     progress: 0.6,
     collectedAmount: 452800000,
     targetAmount: 750000000,

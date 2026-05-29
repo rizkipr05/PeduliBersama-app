@@ -3,7 +3,7 @@ export const DUMMY_EMERGENCY_DISASTERS = [
         id: '1',
         title: 'Banjir Bandang Karawang',
         location: 'Karawang, Jawa Barat',
-        imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600&auto=format&fit=crop',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Jakarta_flood_2013_2.jpg/600px-Jakarta_flood_2013_2.jpg',
         progress: 0.8,
         collectedAmount: 45200000000,
         isEmergency: true,

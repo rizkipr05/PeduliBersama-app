@@ -13,7 +13,7 @@ import MessageTextArea from '../components/MessageTextArea';
 import DonationBottomBar from '../components/DonationBottomBar';
 
 const DUMMY_DETAIL = {
-    imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=600',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Jakarta_flood_2013_2.jpg/600px-Jakarta_flood_2013_2.jpg',
     title: 'Bantuan Korban Banjir Bandang',
     location: 'Luwu Utara, Sulawesi Selatan',
     isEmergency: true,
