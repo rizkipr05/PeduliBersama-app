@@ -2,9 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://10.0.2.2:3000',
-    // Catatan: ganti ke IP laptop jika pakai device fisik
-    // contoh: 'http://192.168.1.x:3000'
+    baseURL: 'http://172.20.10.2:3000',
+    // IP di atas otomatis saya sesuaikan dengan IP Wi-Fi/Hotspot laptop Anda sekarang
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
