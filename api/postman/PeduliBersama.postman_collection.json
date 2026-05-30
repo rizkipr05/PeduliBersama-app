@@ -1,7 +1,8 @@
 {
   "info": {
-    "_postman_id": "b15d1cb2-ef98-4555-91ad-3431ba05d4ce",
+    "_postman_id": "f95b5a5f-10f9-4fc4-aeb0-c298fdc6b6b8",
     "name": "PeduliBersama API",
+    "description": "Collection Postman untuk testing endpoint HTTP backend PeduliBersama.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -9,7 +10,24 @@
       "name": "Auth",
       "item": [
         {
-          "name": "Register",
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Register success', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201, 409]);",
+                  "});",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('userId', String(json.data.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -20,24 +38,31 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Donatur Satu\",\n  \"email\": \"donatur1@mail.com\",\n  \"password\": \"secret123\"\n}"
+              "raw": "{\n  \"name\": \"{{userName}}\",\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
             },
             "url": "{{baseUrl}}/auth/register"
           }
         },
         {
-          "name": "Login",
+          "name": "Login User",
           "event": [
             {
               "listen": "test",
               "script": {
+                "type": "text/javascript",
                 "exec": [
                   "const json = pm.response.json();",
+                  "pm.test('User login success', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "  pm.expect(json?.data?.accessToken).to.be.a('string').and.not.empty;",
+                  "});",
                   "if (json?.data?.accessToken) {",
                   "  pm.collectionVariables.set('userToken', json.data.accessToken);",
+                  "}",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('userId', String(json.data.id));",
                   "}"
-                ],
-                "type": "text/javascript"
+                ]
               }
             }
           ],
@@ -51,24 +76,31 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"donatur1@mail.com\",\n  \"password\": \"secret123\"\n}"
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
             },
             "url": "{{baseUrl}}/auth/login"
           }
         },
         {
-          "name": "Admin Login",
+          "name": "Login Admin",
           "event": [
             {
               "listen": "test",
               "script": {
+                "type": "text/javascript",
                 "exec": [
                   "const json = pm.response.json();",
+                  "pm.test('Admin login success', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "  pm.expect(json?.data?.accessToken).to.be.a('string').and.not.empty;",
+                  "});",
                   "if (json?.data?.accessToken) {",
                   "  pm.collectionVariables.set('adminToken', json.data.accessToken);",
+                  "}",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('adminId', String(json.data.id));",
                   "}"
-                ],
-                "type": "text/javascript"
+                ]
               }
             }
           ],
@@ -82,34 +114,92 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@mail.com\",\n  \"password\": \"secret123\"\n}"
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
             },
             "url": "{{baseUrl}}/auth/admin/login"
           }
         },
         {
-          "name": "Validate Token",
+          "name": "Validate Admin Token",
           "request": {
             "method": "POST",
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{adminToken}}"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{adminToken}}\"\n}"
+            },
             "url": "{{baseUrl}}/auth/validate-token"
           }
         },
         {
-          "name": "Logout",
+          "name": "Validate User Token",
           "request": {
             "method": "POST",
             "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{userToken}}\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/validate-token"
+          }
+        },
+        {
+          "name": "Logout User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{userToken}}\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/logout"
+          }
+        },
+        {
+          "name": "Logout Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{adminToken}}"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{adminToken}}\"\n}"
+            },
             "url": "{{baseUrl}}/auth/logout"
           }
         }
@@ -119,7 +209,24 @@
       "name": "Users",
       "item": [
         {
-          "name": "Create User",
+          "name": "Create User By Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Create user success', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('managedUserId', String(json.data.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -134,7 +241,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Admin Baru\",\n  \"email\": \"admin2@mail.com\",\n  \"password\": \"secret123\",\n  \"role\": \"ADMIN\"\n}"
+              "raw": "{\n  \"name\": \"{{managedUserName}}\",\n  \"email\": \"{{managedUserEmail}}\",\n  \"password\": \"{{managedUserPassword}}\",\n  \"role\": \"{{managedUserRole}}\"\n}"
             },
             "url": "{{baseUrl}}/users"
           }
@@ -162,7 +269,7 @@
                 "value": "Bearer {{adminToken}}"
               }
             ],
-            "url": "{{baseUrl}}/users/1"
+            "url": "{{baseUrl}}/users/{{managedUserId}}"
           }
         },
         {
@@ -181,9 +288,9 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Admin Update\",\n  \"role\": \"USER\"\n}"
+              "raw": "{\n  \"name\": \"{{managedUserUpdatedName}}\",\n  \"role\": \"{{managedUserUpdatedRole}}\"\n}"
             },
-            "url": "{{baseUrl}}/users/1"
+            "url": "{{baseUrl}}/users/{{managedUserId}}"
           }
         },
         {
@@ -196,7 +303,7 @@
                 "value": "Bearer {{adminToken}}"
               }
             ],
-            "url": "{{baseUrl}}/users/2"
+            "url": "{{baseUrl}}/users/{{managedUserId}}"
           }
         }
       ]
@@ -206,6 +313,23 @@
       "item": [
         {
           "name": "Create Bencana",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Create disaster success', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('disasterId', String(json.data.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -220,7 +344,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Banjir Jakarta\",\n  \"description\": \"Banjir di beberapa kecamatan\",\n  \"location\": \"Jakarta Timur\",\n  \"status\": \"ACTIVE\",\n  \"photos\": [\n    {\n      \"photoUrl\": \"https://cdn.app/foto-1.jpg\",\n      \"caption\": \"Kondisi lapangan\"\n    }\n  ],\n  \"needs\": [\n    {\n      \"itemName\": \"Makanan\",\n      \"quantity\": 100,\n      \"unit\": \"paket\"\n    }\n  ]\n}"
+              "raw": "{\n  \"title\": \"{{disasterTitle}}\",\n  \"description\": \"{{disasterDescription}}\",\n  \"location\": \"{{disasterLocation}}\",\n  \"status\": \"{{disasterStatus}}\",\n  \"photos\": [\n    {\n      \"photoUrl\": \"{{disasterPhotoUrl}}\",\n      \"caption\": \"{{disasterPhotoCaption}}\"\n    }\n  ],\n  \"needs\": [\n    {\n      \"itemName\": \"{{disasterNeedItemName}}\",\n      \"quantity\": {{disasterNeedQuantity}},\n      \"unit\": \"{{disasterNeedUnit}}\",\n      \"notes\": \"{{disasterNeedNotes}}\"\n    }\n  ]\n}"
             },
             "url": "{{baseUrl}}/bencana"
           }
@@ -248,7 +372,7 @@
                 "value": "Bearer {{adminToken}}"
               }
             ],
-            "url": "{{baseUrl}}/bencana/1"
+            "url": "{{baseUrl}}/bencana/{{disasterId}}"
           }
         },
         {
@@ -267,9 +391,9 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"COMPLETED\",\n  \"description\": \"Bencana sudah tertangani\"\n}"
+              "raw": "{\n  \"title\": \"{{disasterUpdatedTitle}}\",\n  \"description\": \"{{disasterUpdatedDescription}}\",\n  \"location\": \"{{disasterUpdatedLocation}}\",\n  \"status\": \"{{disasterUpdatedStatus}}\",\n  \"photos\": [\n    {\n      \"photoUrl\": \"{{disasterUpdatedPhotoUrl}}\",\n      \"caption\": \"{{disasterUpdatedPhotoCaption}}\"\n    }\n  ],\n  \"needs\": [\n    {\n      \"itemName\": \"{{disasterUpdatedNeedItemName}}\",\n      \"quantity\": {{disasterUpdatedNeedQuantity}},\n      \"unit\": \"{{disasterUpdatedNeedUnit}}\",\n      \"notes\": \"{{disasterUpdatedNeedNotes}}\"\n    }\n  ]\n}"
             },
-            "url": "{{baseUrl}}/bencana/1"
+            "url": "{{baseUrl}}/bencana/{{disasterId}}"
           }
         },
         {
@@ -288,9 +412,9 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"photoUrl\": \"https://cdn.app/foto-2.jpg\",\n  \"caption\": \"Update terbaru\"\n}"
+              "raw": "{\n  \"photoUrl\": \"{{uploadDisasterPhotoUrl}}\",\n  \"caption\": \"{{uploadDisasterPhotoCaption}}\"\n}"
             },
-            "url": "{{baseUrl}}/bencana/1/photos"
+            "url": "{{baseUrl}}/bencana/{{disasterId}}/photos"
           }
         },
         {
@@ -309,9 +433,9 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"needs\": [\n    {\n      \"itemName\": \"Air Mineral\",\n      \"quantity\": 50,\n      \"unit\": \"dus\"\n    },\n    {\n      \"itemName\": \"Selimut\",\n      \"quantity\": 30,\n      \"unit\": \"pcs\"\n    }\n  ]\n}"
+              "raw": "{\n  \"needs\": [\n    {\n      \"itemName\": \"{{setNeedsItem1Name}}\",\n      \"quantity\": {{setNeedsItem1Quantity}},\n      \"unit\": \"{{setNeedsItem1Unit}}\",\n      \"notes\": \"{{setNeedsItem1Notes}}\"\n    },\n    {\n      \"itemName\": \"{{setNeedsItem2Name}}\",\n      \"quantity\": {{setNeedsItem2Quantity}},\n      \"unit\": \"{{setNeedsItem2Unit}}\",\n      \"notes\": \"{{setNeedsItem2Notes}}\"\n    }\n  ]\n}"
             },
-            "url": "{{baseUrl}}/bencana/1/needs"
+            "url": "{{baseUrl}}/bencana/{{disasterId}}/needs"
           }
         },
         {
@@ -324,7 +448,114 @@
                 "value": "Bearer {{adminToken}}"
               }
             ],
-            "url": "{{baseUrl}}/bencana/1"
+            "url": "{{baseUrl}}/bencana/{{disasterId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Donasi",
+      "item": [
+        {
+          "name": "Create Donasi",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.test('Create donation response received', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "if (json?.data?.id) {",
+                  "  pm.collectionVariables.set('donationId', String(json.data.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"disasterId\": {{disasterId}},\n  \"nominal\": {{donationNominal}},\n  \"paymentMethod\": \"{{donationPaymentMethod}}\",\n  \"donorName\": \"{{donationDonorName}}\",\n  \"donorEmail\": \"{{donationDonorEmail}}\"\n}"
+            },
+            "url": "{{baseUrl}}/donasi"
+          }
+        },
+        {
+          "name": "Get My Donations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/donasi/me"
+          }
+        },
+        {
+          "name": "Get All Donations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/donasi"
+          }
+        },
+        {
+          "name": "Update Donation Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"{{donationUpdatedStatus}}\"\n}"
+            },
+            "url": "{{baseUrl}}/donasi/{{donationId}}/status"
+          }
+        },
+        {
+          "name": "Midtrans Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"DONASI-{{donationId}}-{{midtransOrderTimestamp}}\",\n  \"transaction_status\": \"{{midtransTransactionStatus}}\",\n  \"gross_amount\": \"{{midtransGrossAmount}}\",\n  \"status_code\": \"{{midtransStatusCode}}\",\n  \"payment_type\": \"{{midtransPaymentType}}\"\n}"
+            },
+            "url": "{{baseUrl}}/donasi/midtrans-notification"
           }
         }
       ]
@@ -333,7 +564,211 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3000"
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@mail.com"
+    },
+    {
+      "key": "adminPassword",
+      "value": "secret123"
+    },
+    {
+      "key": "userEmail",
+      "value": "user.postman@mail.com"
+    },
+    {
+      "key": "userName",
+      "value": "User Postman"
+    },
+    {
+      "key": "userPassword",
+      "value": "secret123"
+    },
+    {
+      "key": "managedUserName",
+      "value": "Managed User"
+    },
+    {
+      "key": "managedUserEmail",
+      "value": "managed.user@mail.com"
+    },
+    {
+      "key": "managedUserPassword",
+      "value": "secret123"
+    },
+    {
+      "key": "managedUserRole",
+      "value": "USER"
+    },
+    {
+      "key": "managedUserUpdatedName",
+      "value": "Managed User Updated"
+    },
+    {
+      "key": "managedUserUpdatedRole",
+      "value": "ADMIN"
+    },
+    {
+      "key": "disasterTitle",
+      "value": "Banjir Jakarta"
+    },
+    {
+      "key": "disasterDescription",
+      "value": "Banjir di beberapa kecamatan"
+    },
+    {
+      "key": "disasterLocation",
+      "value": "Jakarta Timur"
+    },
+    {
+      "key": "disasterStatus",
+      "value": "ACTIVE"
+    },
+    {
+      "key": "disasterPhotoUrl",
+      "value": "https://cdn.example.com/foto-1.jpg"
+    },
+    {
+      "key": "disasterPhotoCaption",
+      "value": "Kondisi lapangan"
+    },
+    {
+      "key": "disasterNeedItemName",
+      "value": "Makanan"
+    },
+    {
+      "key": "disasterNeedQuantity",
+      "value": "100"
+    },
+    {
+      "key": "disasterNeedUnit",
+      "value": "paket"
+    },
+    {
+      "key": "disasterNeedNotes",
+      "value": "Makanan siap saji"
+    },
+    {
+      "key": "disasterUpdatedTitle",
+      "value": "Banjir Jakarta Update"
+    },
+    {
+      "key": "disasterUpdatedDescription",
+      "value": "Kondisi sudah mulai terkendali"
+    },
+    {
+      "key": "disasterUpdatedLocation",
+      "value": "Jakarta Timur"
+    },
+    {
+      "key": "disasterUpdatedStatus",
+      "value": "COMPLETED"
+    },
+    {
+      "key": "disasterUpdatedPhotoUrl",
+      "value": "https://cdn.example.com/foto-2.jpg"
+    },
+    {
+      "key": "disasterUpdatedPhotoCaption",
+      "value": "Update terbaru"
+    },
+    {
+      "key": "disasterUpdatedNeedItemName",
+      "value": "Selimut"
+    },
+    {
+      "key": "disasterUpdatedNeedQuantity",
+      "value": "30"
+    },
+    {
+      "key": "disasterUpdatedNeedUnit",
+      "value": "pcs"
+    },
+    {
+      "key": "disasterUpdatedNeedNotes",
+      "value": "Prioritas bayi dan lansia"
+    },
+    {
+      "key": "uploadDisasterPhotoUrl",
+      "value": "https://cdn.example.com/foto-3.jpg"
+    },
+    {
+      "key": "uploadDisasterPhotoCaption",
+      "value": "Distribusi bantuan"
+    },
+    {
+      "key": "setNeedsItem1Name",
+      "value": "Air Mineral"
+    },
+    {
+      "key": "setNeedsItem1Quantity",
+      "value": "50"
+    },
+    {
+      "key": "setNeedsItem1Unit",
+      "value": "dus"
+    },
+    {
+      "key": "setNeedsItem1Notes",
+      "value": "Kebutuhan 3 hari"
+    },
+    {
+      "key": "setNeedsItem2Name",
+      "value": "Obat-obatan"
+    },
+    {
+      "key": "setNeedsItem2Quantity",
+      "value": "20"
+    },
+    {
+      "key": "setNeedsItem2Unit",
+      "value": "paket"
+    },
+    {
+      "key": "setNeedsItem2Notes",
+      "value": "P3K dasar"
+    },
+    {
+      "key": "donationNominal",
+      "value": "25000"
+    },
+    {
+      "key": "donationPaymentMethod",
+      "value": "midtrans"
+    },
+    {
+      "key": "donationDonorName",
+      "value": "User Postman"
+    },
+    {
+      "key": "donationDonorEmail",
+      "value": "{{userEmail}}"
+    },
+    {
+      "key": "donationUpdatedStatus",
+      "value": "VERIFIED"
+    },
+    {
+      "key": "midtransOrderTimestamp",
+      "value": "1717000000000"
+    },
+    {
+      "key": "midtransTransactionStatus",
+      "value": "settlement"
+    },
+    {
+      "key": "midtransGrossAmount",
+      "value": "25000.00"
+    },
+    {
+      "key": "midtransStatusCode",
+      "value": "200"
+    },
+    {
+      "key": "midtransPaymentType",
+      "value": "bank_transfer"
     },
     {
       "key": "adminToken",
@@ -342,6 +777,26 @@
     {
       "key": "userToken",
       "value": ""
+    },
+    {
+      "key": "adminId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "managedUserId",
+      "value": "1"
+    },
+    {
+      "key": "disasterId",
+      "value": "1"
+    },
+    {
+      "key": "donationId",
+      "value": "1"
     }
   ]
 }

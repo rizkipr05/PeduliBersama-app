@@ -361,21 +361,25 @@ export class AuthService {
       throw new BadRequestException('Token is required');
     }
 
+    const normalizedToken = token.trim().replace(/^"(.*)"$/, '$1');
+
     this.cleanupRevokedTokens();
 
-    if (this.revokedTokens.has(token)) {
+    if (this.revokedTokens.has(normalizedToken)) {
       throw new UnauthorizedException('Token has been revoked');
     }
 
-    const [encodedHeader, encodedPayload, signature] = token.split('.');
+    const [encodedHeader, encodedPayload, signature] = normalizedToken.split('.');
     if (!encodedHeader || !encodedPayload || !signature) {
       throw new UnauthorizedException('Invalid token format');
     }
 
     const expectedSignature = this.sign(`${encodedHeader}.${encodedPayload}`);
-    if (
-      !timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
-    ) {
+    if (signature.length !== expectedSignature.length) {
+      throw new UnauthorizedException('Invalid token signature');
+    }
+
+    if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
       throw new UnauthorizedException('Invalid token signature');
     }
 
@@ -401,7 +405,8 @@ export class AuthService {
   }
 
   private revokeToken(token: string, exp: number) {
-    this.revokedTokens.set(token, exp);
+    const normalizedToken = token.trim().replace(/^"(.*)"$/, '$1');
+    this.revokedTokens.set(normalizedToken, exp);
     this.cleanupRevokedTokens();
   }
 

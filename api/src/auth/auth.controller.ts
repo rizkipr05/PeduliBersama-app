@@ -54,11 +54,11 @@ export class AuthController {
 
   @Post('auth/logout')
   logoutHttp(
-    @Body() tokenDto: TokenDto,
+    @Body() tokenDto?: TokenDto,
     @Headers('authorization') authorization?: string,
   ) {
     return this.authService.logout({
-      token: tokenDto.token ?? this.extractBearerToken(authorization),
+      token: tokenDto?.token ?? this.extractBearerToken(authorization),
     });
   }
 
@@ -69,11 +69,11 @@ export class AuthController {
 
   @Post('auth/validate-token')
   validateTokenHttp(
-    @Body() tokenDto: TokenDto,
+    @Body() tokenDto?: TokenDto,
     @Headers('authorization') authorization?: string,
   ) {
     return this.authService.validateToken({
-      token: tokenDto.token ?? this.extractBearerToken(authorization),
+      token: tokenDto?.token ?? this.extractBearerToken(authorization),
     });
   }
 
@@ -174,6 +174,6 @@ export class AuthController {
       return undefined;
     }
 
-    return token;
+    return token?.trim().replace(/^"(.*)"$/, '$1');
   }
 }
