@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import { Download } from 'lucide-react-native';
 import SuccessHeader from '../components/SuccessHeader';
@@ -10,16 +10,22 @@ import ShareDonation from '../components/ShareDonation';
 
 const DonasiBerhasilScreen = () => {
     const navigation = useNavigation();
+    const route = useRoute<any>();
+    const { amount, paymentMethod, transactionId } = route.params || {
+        amount: 250000,
+        paymentMethod: 'DANA Balance',
+        transactionId: 'PB-20231105-0881'
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                 <SuccessHeader />
                 <DonationReceiptCard 
-                    transactionId="PB-20231105-0881"
-                    disasterTitle="Erupsi Gunung Semeru"
-                    paymentMethod="DANA Balance"
-                    amount={250000}
+                    transactionId={transactionId}
+                    disasterTitle="Donasi PeduliBersama"
+                    paymentMethod={paymentMethod}
+                    amount={amount}
                 />
 
                 <TouchableOpacity 
