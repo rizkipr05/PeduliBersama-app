@@ -33,8 +33,8 @@ const KonfirmasiDonasiScreen = () => {
             };
             const res = await donasiApi.createDonation(payload);
             
-            if (res.data?.data?.paymentUrl) {
-                setPaymentUrl(res.data.data.paymentUrl);
+            if (res.data?.data?.payment_url) {
+                setPaymentUrl(res.data.data.payment_url);
             } else {
                 Alert.alert('Gagal', 'Tidak ada URL pembayaran dari server.');
             }
