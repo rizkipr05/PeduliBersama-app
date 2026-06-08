@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
     Alert,
+    Image,
 } from 'react-native';
 import { Mail, Lock } from 'lucide-react-native';
 import Button from '../components/Button';
@@ -75,9 +76,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
                 {/* Logo Row */}
                 <View style={styles.logoRow}>
-                    <View style={styles.logoBox}>
-                        <Text style={styles.logoEmoji}>🌿</Text>
-                    </View>
+                    <Image 
+                        source={require('../assets/App Logo_ Green circle with heart+hands.png')} 
+                        style={styles.logoImage} 
+                        resizeMode="contain"
+                    />
                     <Text style={styles.logoText}>PeduliBersama</Text>
                 </View>
 
@@ -168,17 +171,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: Spacing.xl,
     },
-    logoBox: {
+    logoImage: {
         width: 36,
         height: 36,
-        borderRadius: 8,
-        backgroundColor: Colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
         marginRight: Spacing.sm,
-    },
-    logoEmoji: {
-        fontSize: 18,
     },
     logoText: {
         fontSize: 18,
