@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../theme';
+import { donasiApi } from '../services/api';
 
 import HistoryHeader from '../components/HistoryHeader';
 import FilterTabs from '../components/FilterTabs';
@@ -62,8 +63,44 @@ const MOCK_HISTORY: HistoryListItemProps[] = [
 const HistoryScreen = () => {
     const navigation = useNavigation();
     const [activeTab, setActiveTab] = useState('Semua');
+    const [history, setHistory] = useState<HistoryListItemProps[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const filteredHistory = MOCK_HISTORY.filter(item => {
+    const mapStatus = (status: string) => {
+        if (status === 'VERIFIED') return 'Berhasil';
+        if (status === 'REJECTED') return 'Gagal';
+        return 'Diproses'; // PENDING
+    };
+
+    React.useEffect(() => {
+        const fetchHistory = async () => {
+            try {
+                const res = await donasiApi.getMyDonations();
+                if (res.data?.data) {
+                    const mappedData = res.data.data.map((item: any) => {
+                        const dateObj = new Date(item.createdAt);
+                        return {
+                            id: String(item.id),
+                            title: item.disaster?.title || 'Donasi Kemanusiaan',
+                            date: dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+                            time: dateObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                            amount: item.nominal,
+                            status: mapStatus(item.status),
+                            imageUrl: item.disaster?.photos?.[0]?.photoUrl || 'https://via.placeholder.com/100',
+                        };
+                    });
+                    setHistory(mappedData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch history:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchHistory();
+    }, []);
+
+    const filteredHistory = history.filter(item => {
         if (activeTab === 'Semua') return true;
         return item.status === activeTab;
     });
@@ -82,8 +119,8 @@ const HistoryScreen = () => {
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
                 <DonationSummaryWidget 
-                    totalAmount={2450000} 
-                    campaignCount={12} 
+                    totalAmount={history.filter(i => i.status === 'Berhasil').reduce((sum, i) => sum + i.amount, 0)} 
+                    campaignCount={history.length} 
                 />
 
                 <View style={styles.listContainer}>
