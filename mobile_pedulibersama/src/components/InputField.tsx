@@ -14,6 +14,7 @@ import { Colors, Spacing, Typography } from '../theme';
 interface InputFieldProps extends TextInputProps {
     label?: string;
     leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
     isPassword?: boolean;
     error?: string;
     containerStyle?: ViewStyle;
@@ -22,6 +23,7 @@ interface InputFieldProps extends TextInputProps {
 const InputField: React.FC<InputFieldProps> = ({
     label,
     leftIcon,
+    rightIcon,
     isPassword = false,
     error,
     containerStyle,
@@ -79,6 +81,11 @@ const InputField: React.FC<InputFieldProps> = ({
                         )}
                     </TouchableOpacity>
                 )}
+                {!isPassword && rightIcon && (
+                    <View style={styles.rightIconWrapper}>
+                        {rightIcon}
+                    </View>
+                )}
             </View>
             {error && <Text style={styles.errorText}>{error}</Text>}
         </View>
@@ -113,6 +120,9 @@ const styles = StyleSheet.create({
     rightIcon: {
         marginLeft: Spacing.sm,
         padding: 4,
+    },
+    rightIconWrapper: {
+        marginLeft: Spacing.sm,
     },
     errorText: {
         ...Typography.caption,
