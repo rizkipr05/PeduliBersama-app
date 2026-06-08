@@ -5,8 +5,8 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { Colors, Spacing, Typography } from '../theme';
 
 const { width } = Dimensions.get('window');
@@ -74,13 +74,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
                         transform: [{ scale: scaleAnim }],
                     },
                 ]}>
-                <LinearGradient
-                    colors={[Colors.primary, Colors.primaryContainer]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={styles.logoBox}>
-                    <Text style={styles.logoEmoji}>🤲</Text>
-                </LinearGradient>
+                <Image 
+                    source={require('../assets/App Logo_ Green circle with heart+hands.png')} 
+                    style={styles.logoImage} 
+                    resizeMode="contain"
+                />
             </Animated.View>
 
             {/* Nama + Tagline */}
@@ -111,15 +109,9 @@ const styles = StyleSheet.create({
     logoWrapper: {
         marginBottom: Spacing.lg,
     },
-    logoBox: {
-        width: 100,
-        height: 100,
-        borderRadius: 24,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logoEmoji: {
-        fontSize: 48,
+    logoImage: {
+        width: 120,
+        height: 120,
     },
     appName: {
         ...Typography.h1,
