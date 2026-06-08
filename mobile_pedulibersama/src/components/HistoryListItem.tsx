@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 
 export type TransactionStatus = 'Berhasil' | 'Diproses' | 'Gagal';
@@ -22,6 +23,7 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({
     status,
     imageUrl,
 }) => {
+    const navigation = useNavigation();
     
     // Status color mapping
     const getStatusStyle = () => {
@@ -38,7 +40,11 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({
     const amountColor = status === 'Berhasil' ? Colors.primary : statusStyle.text;
 
     return (
-        <View style={styles.card}>
+        <TouchableOpacity 
+            style={styles.card} 
+            activeOpacity={0.7}
+            onPress={() => (navigation as any).navigate('TrackingDonasi', { id })}
+        >
             <Image 
                 source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl} 
                 style={styles.image} 
@@ -57,7 +63,7 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({
                     {status}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
