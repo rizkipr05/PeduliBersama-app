@@ -49,6 +49,12 @@ export const bencanaApi = {
     getById: (id: string | number) => api.get(`/bencana/${id}`),
 };
 
+// Donasi API
+export const donasiApi = {
+    createDonation: (data: any) => api.post('/donasi', data),
+    getMyDonations: () => api.get('/donasi/me'),
+};
+
 // Helpers
 export const saveToken = (token: string) =>
     AsyncStorage.setItem('access_token', token);

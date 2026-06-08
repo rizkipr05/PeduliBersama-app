@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Colors, Spacing } from '../theme';
 
 import FormHeader from '../components/FormHeader';
@@ -12,15 +12,12 @@ import DonatorInfoForm from '../components/DonatorInfoForm';
 import MessageTextArea from '../components/MessageTextArea';
 import DonationBottomBar from '../components/DonationBottomBar';
 
-const DUMMY_DETAIL = {
-    imageUrl: require('../assets/OIP.jpg'),
-    title: 'Bantuan Korban Banjir Bandang',
-    location: 'Luwu Utara, Sulawesi Selatan',
-    isEmergency: true,
-};
-
 const FormDonasiScreen = () => {
     const navigation = useNavigation();
+    const route = useRoute<any>();
+    const { disasterId, title, imageUrl } = route.params || {
+        disasterId: 1, title: 'Bencana Tidak Diketahui', imageUrl: require('../assets/OIP.jpg')
+    };
     const [amount, setAmount] = useState<number>(10000);
     const [paymentMethod, setPaymentMethod] = useState<string>('bank');
     const [donatorName, setDonatorName] = useState('');
@@ -32,7 +29,15 @@ const FormDonasiScreen = () => {
             Alert.alert('Error', 'Minimal donasi adalah Rp 10.000');
             return;
         }
-        (navigation as any).navigate('KonfirmasiDonasi');
+        (navigation as any).navigate('KonfirmasiDonasi', {
+            disasterId,
+            title,
+            imageUrl,
+            amount,
+            paymentMethod,
+            donatorName: donatorName || 'Hamba Allah',
+            isAnonymous
+        });
     };
 
     return (
@@ -49,10 +54,10 @@ const FormDonasiScreen = () => {
                     keyboardDismissMode="on-drag"
                 >
                 <DonationSummaryCard 
-                    imageUrl={DUMMY_DETAIL.imageUrl}
-                    title={DUMMY_DETAIL.title}
-                    location={DUMMY_DETAIL.location}
-                    isEmergency={DUMMY_DETAIL.isEmergency}
+                    imageUrl={imageUrl}
+                    title={title}
+                    location={'Lokasi Bencana'}
+                    isEmergency={true}
                 />
                 <NominalSelector onSelect={setAmount} />
                 <PaymentMethodList onSelect={setPaymentMethod} />
