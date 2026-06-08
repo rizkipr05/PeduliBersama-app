@@ -12,7 +12,7 @@ import { Colors, Spacing, Typography } from '../theme';
 const { width } = Dimensions.get('window');
 
 interface SplashScreenProps {
-    onFinish: () => void;
+    onFinish: (isLoggedIn: boolean) => void;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
@@ -20,8 +20,16 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     const fadeLogoAnim = useRef(new Animated.Value(0)).current;
     const fadeTextAnim = useRef(new Animated.Value(0)).current;
     const loadingAnim = useRef(new Animated.Value(0)).current;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
+        // Cek token di background
+        import('@react-native-async-storage/async-storage').then(module => {
+            module.default.getItem('access_token').then(token => {
+                if (token) setIsLoggedIn(true);
+            });
+        });
+
         // Logo spring scale + fadeIn
         Animated.parallel([
             Animated.spring(scaleAnim, {
@@ -52,7 +60,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             }).start(() => {
                 //Setelah loading bar penuh, delay 300ms lalu onFinish
                 setTimeout(() => {
-                    onFinish();
+                    onFinish(isLoggedIn);
                 }, 300);
             });
         });

@@ -37,15 +37,19 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
  */
 const AppNavigator: React.FC = () => {
     const [showSplash, setShowSplash] = useState(true);
+    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList>('Login');
 
     if (showSplash) {
-        return <SplashScreen onFinish={() => setShowSplash(false)} />;
+        return <SplashScreen onFinish={(isLoggedIn) => {
+            setInitialRoute(isLoggedIn ? 'Main' : 'Login');
+            setShowSplash(false);
+        }} />;
     }
 
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="Main"
+                initialRouteName={initialRoute}
                 screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Onboarding" component={OnboardingScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
