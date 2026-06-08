@@ -3,9 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import DisasterListItem from './DisasterListItem';
-import { DUMMY_ALL_DISASTERS } from '../services/mockData';
 
-const AllDisastersSection = () => {
+interface AllDisastersSectionProps {
+    data: any[];
+}
+
+const AllDisastersSection: React.FC<AllDisastersSectionProps> = ({ data }) => {
     const navigation = useNavigation();
 
     return (
@@ -17,14 +20,14 @@ const AllDisastersSection = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.verticalList}>
-                {DUMMY_ALL_DISASTERS.map(item => (
+                {data.map(item => (
                     <DisasterListItem
                         key={item.id}
                         title={item.title}
                         location={item.location}
-                        imageUrl={item.imageUrl}
-                        progress={item.progress}
-                        collectedAmount={item.collectedAmount}
+                        imageUrl={item.photos?.[0]?.photoUrl || item.imageUrl || 'https://via.placeholder.com/100'}
+                        progress={item.progress || 0.4}
+                        collectedAmount={item.collectedAmount || 500000}
                         onPress={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
                     />
                 ))}

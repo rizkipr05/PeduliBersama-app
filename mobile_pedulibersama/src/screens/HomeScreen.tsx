@@ -6,6 +6,7 @@ import HomeHeader from '../components/HomeHeader';
 import EmergencySection from '../components/EmergencySection';
 import AllDisastersSection from '../components/AllDisastersSection';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { bencanaApi } from '../services/api';
 
 /**
  * HomeScreen: Halaman utama aplikasi setelah pengguna berhasil login.
@@ -13,12 +14,30 @@ import { SafeAreaView } from 'react-native-safe-area-context';
  */
 const HomeScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
+    const [disasters, setDisasters] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchDisasters = async () => {
+        try {
+            const res = await bencanaApi.getAll();
+            if (res.data?.data) {
+                setDisasters(res.data.data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch disasters:", error);
+        } finally {
+            setLoading(false);
+            setRefreshing(false);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchDisasters();
+    }, []);
 
     const onRefresh = () => {
         setRefreshing(true);
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 1500);
+        fetchDisasters();
     };
 
     return (
@@ -40,10 +59,10 @@ const HomeScreen = () => {
                 </View>
 
                 {/* AREA BENCANA DARURAT: Menampilkan daftar bencana mendesak secara horizontal (bisa digeser ke samping) */}
-                <EmergencySection />
+                <EmergencySection data={disasters.slice(0, 3)} />
 
                 {/* AREA SEMUA BENCANA: Menampilkan daftar seluruh donasi secara vertikal (memanjang ke bawah) */}
-                <AllDisastersSection />
+                <AllDisastersSection data={disasters} />
 
             </ScrollView>
         </SafeAreaView>
