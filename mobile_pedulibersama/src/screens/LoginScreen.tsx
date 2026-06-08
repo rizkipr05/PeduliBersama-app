@@ -15,6 +15,7 @@ import Button from '../components/Button';
 import InputField from '../components/InputField';
 import { Colors, Spacing, Typography } from '../theme';
 import { authApi, saveToken } from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface LoginScreenProps {
     navigation: any;
@@ -52,10 +53,17 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         setLoading(true);
         try {
             const res = await authApi.login({ email, password });
-            if (res.data && res.data.access_token) {
-                await saveToken(res.data.access_token);
+            const payload = res.data?.data;
+            if (payload && payload.accessToken) {
+                await saveToken(payload.accessToken);
+                // Simpan info user untuk dipakai di ProfileScreen
+                await AsyncStorage.setItem('user', JSON.stringify({
+                    id: payload.id,
+                    name: payload.name,
+                    email: payload.email,
+                    role: payload.role,
+                }));
                 navigation.replace('Main');
-                Alert.alert('Sukses', 'Login berhasil!');
             }
         } catch (error: any) {
             const errorMsg = error.response?.data?.message || 'Gagal login, periksa kembali email dan password Anda.';
