@@ -87,7 +87,11 @@ const DetailBencanaScreen = () => {
             </ScrollView>
             
             {/* 6. Aksi Bawah: Tombol donasi hijau yang posisinya selalu diam (fixed) di dasar layar */}
-            <BottomActionBar onDonate={() => navigation.navigate('FormDonasi')} />
+            <BottomActionBar onDonate={() => (navigation as any).navigate('FormDonasi', { 
+                disasterId: mappedDisaster.id,
+                title: mappedDisaster.title,
+                imageUrl: mappedDisaster.imageUrl
+            })} />
         </View>
     );
 };
