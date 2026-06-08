@@ -23,11 +23,7 @@ const KonfirmasiDonasiScreen = () => {
     const navigation = useNavigation();
 
     const handlePay = () => {
-        Alert.alert(
-            'Donasi Berhasil!',
-            'Terima kasih atas kebaikan Anda. Bantuan akan segera disalurkan.',
-            [{ text: 'OK', onPress: () => (navigation as any).navigate('Main') }]
-        );
+        (navigation as any).navigate('DonasiBerhasil');
     };
 
     return (
