@@ -47,7 +47,7 @@ const DonasiBerhasilScreen = () => {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.surface,
     },
     container: {
         flexGrow: 1,

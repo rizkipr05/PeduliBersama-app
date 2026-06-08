@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     },
     quoteBox: {
         flexDirection: 'row',
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.surface,
         padding: Spacing.md,
         borderRadius: 12,
         alignItems: 'center',
