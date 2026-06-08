@@ -9,6 +9,7 @@ import ProfileHero from '../components/ProfileHero';
 import ProfileMenuItem from '../components/ProfileMenuItem';
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
     const [isNotifEnabled, setIsNotifEnabled] = useState(true);
 
     return (
@@ -33,6 +34,7 @@ const ProfileScreen = () => {
                         <ProfileMenuItem 
                             title="Edit Profil" 
                             icon={<User color={Colors.primary} size={20} />} 
+                            onPress={() => (navigation as any).navigate('EditProfile')}
                         />
                         <ProfileMenuItem 
                             title="Keamanan Akun" 
