@@ -43,6 +43,12 @@ export const authApi = {
     getProfile: () => api.get('/auth/profile'),
 };
 
+// Bencana (Disaster) API
+export const bencanaApi = {
+    getAll: () => api.get('/bencana'),
+    getById: (id: string | number) => api.get(`/bencana/${id}`),
+};
+
 // Helpers
 export const saveToken = (token: string) =>
     AsyncStorage.setItem('access_token', token);
