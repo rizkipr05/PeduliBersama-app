@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     borderBottom: {
         borderBottomWidth: 1,
         borderBottomColor: Colors.border,
-        borderBottomOpacity: 0.3,
     },
     iconBox: {
         width: 40,

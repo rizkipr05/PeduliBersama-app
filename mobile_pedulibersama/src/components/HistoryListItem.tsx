@@ -16,6 +16,7 @@ export interface HistoryListItemProps {
 }
 
 const HistoryListItem: React.FC<HistoryListItemProps> = ({
+    id,
     title,
     date,
     time,

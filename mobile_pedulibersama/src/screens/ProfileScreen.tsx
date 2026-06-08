@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { User, ShieldCheck, Clock, Heart, Bell, HelpCircle, LogOut } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
