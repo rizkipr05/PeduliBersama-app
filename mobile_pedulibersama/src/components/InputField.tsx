@@ -17,7 +17,10 @@ interface InputFieldProps extends TextInputProps {
     rightIcon?: ReactNode;
     isPassword?: boolean;
     error?: string;
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<TextStyle>;
+    accessibilityLabel?: string;
+    accessibilityHint?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -27,6 +30,9 @@ const InputField: React.FC<InputFieldProps> = ({
     isPassword = false,
     error,
     containerStyle,
+    style,
+    accessibilityLabel,
+    accessibilityHint,
     ...rest
 }) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -62,11 +68,14 @@ const InputField: React.FC<InputFieldProps> = ({
                 ]}>
                 {leftIcon && <View style={styles.leftIcon}>{leftIcon}</View>}
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, style]}
                     placeholderTextColor={Colors.border}
                     secureTextEntry={isPassword && !showPassword}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
+                    accessible={true}
+                    accessibilityLabel={accessibilityLabel || label}
+                    accessibilityHint={accessibilityHint}
                     {...rest}
                 />
                 {isPassword && (
