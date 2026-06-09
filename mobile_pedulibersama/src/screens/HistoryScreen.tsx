@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../theme';
 import { donasiApi } from '../services/api';
 import { Donation } from '../types';
+import { formatDateIndo, formatTimeIndo } from '../utils/date';
 
 import HistoryHeader from '../components/HistoryHeader';
 import FilterTabs from '../components/FilterTabs';
@@ -82,12 +83,11 @@ const HistoryScreen = () => {
                 const res = await donasiApi.getMyDonations();
                 if (res.data?.data) {
                     const mappedData = res.data.data.map((item: Donation) => {
-                        const dateObj = new Date(item.createdAt);
                         return {
                             id: String(item.id),
                             title: item.disaster?.title || 'Donasi Kemanusiaan',
-                            date: dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
-                            time: dateObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                            date: formatDateIndo(item.createdAt),
+                            time: formatTimeIndo(item.createdAt),
                             amount: item.nominal,
                             status: mapStatus(item.status),
                             imageUrl: item.disaster?.photos?.[0]?.photoUrl || 'https://via.placeholder.com/100',
