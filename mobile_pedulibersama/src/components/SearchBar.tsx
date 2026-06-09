@@ -26,6 +26,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder = 'Cari bencana...', 
                 placeholderTextColor={Colors.textMuted}
                 value={searchText}
                 onChangeText={setSearchText}
+                accessible={true}
+                accessibilityLabel="Pencarian Bencana"
+                accessibilityHint="Masukkan nama bencana atau lokasi untuk mencari kampanye"
                 {...props}
             />
             {searchText.length > 0 && (
