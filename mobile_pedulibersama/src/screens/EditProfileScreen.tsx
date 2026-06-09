@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Lock, Calendar, ChevronDown } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
+import { authApi } from '../services/api';
+import { Alert, ActivityIndicator } from 'react-native';
 
 import EditProfileHeader from '../components/EditProfileHeader';
 import ProfileAvatarEdit from '../components/ProfileAvatarEdit';
@@ -11,17 +13,50 @@ import InputField from '../components/InputField';
 
 const EditProfileScreen = () => {
     const navigation = useNavigation();
-    const [name, setName] = useState('Budi Setiawan');
-    const [email, setEmail] = useState('budi.setiawan@email.com');
+    const [userId, setUserId] = useState<number | null>(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('+62 812 3456 7890');
     const [dob, setDob] = useState('12 Mei 1995');
     const [gender, setGender] = useState('Laki-laki');
+    const [loading, setLoading] = useState(true);
 
-    const handleSave = () => {
-        // Logic to save profile
-        console.log("Saved!", { name, phone, dob, gender });
-        navigation.goBack();
+    React.useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await authApi.getProfile();
+                if (res.data?.data) {
+                    setUserId(res.data.data.id);
+                    setName(res.data.data.name || '');
+                    setEmail(res.data.data.email || '');
+                }
+            } catch (error) {
+                console.error("Failed to fetch profile:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProfile();
+    }, []);
+
+    const handleSave = async () => {
+        if (!userId) return;
+        try {
+            await authApi.updateProfile(userId, { name });
+            Alert.alert('Sukses', 'Profil berhasil diperbarui');
+            navigation.goBack();
+        } catch (err) {
+            Alert.alert('Error', 'Gagal memperbarui profil');
+        }
     };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={[styles.safeArea, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.safeArea}>
