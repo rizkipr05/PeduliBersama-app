@@ -30,6 +30,10 @@ const ProfileMenuItem: React.FC<ProfileMenuItemProps> = ({
             onPress={onPress}
             disabled={hasSwitch} // Disable tap if it's a switch item
             activeOpacity={0.7}
+            accessible={true}
+            accessibilityRole={hasSwitch ? "switch" : "button"}
+            accessibilityLabel={title}
+            accessibilityState={hasSwitch ? { checked: switchValue } : {}}
         >
             <View style={[styles.iconBox, isDestructive && styles.iconBoxDestructive]}>
                 {icon}
