@@ -4,10 +4,18 @@ import { Bell } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
 
 const HomeHeader = () => {
+    const getGreeting = () => {
+        const hour = new Date().getHours();
+        if (hour < 11) return 'Selamat Pagi,';
+        if (hour < 15) return 'Selamat Siang,';
+        if (hour < 18) return 'Selamat Sore,';
+        return 'Selamat Malam,';
+    };
+
     return (
         <View style={styles.header}>
             <View style={styles.headerTextContainer}>
-                <Text style={styles.greeting}>Halo, Ahmad</Text>
+                <Text style={styles.greeting}>{getGreeting()} Orang Baik</Text>
                 <Text style={styles.subtitle}>Ayo bantu sesama hari ini</Text>
             </View>
             <View style={styles.headerRight}>
