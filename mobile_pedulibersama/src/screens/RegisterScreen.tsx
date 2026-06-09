@@ -55,6 +55,8 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
             newErrors.password = 'Password tidak boleh kosong';
         } else if (form.password.length < 8) {
             newErrors.password = 'Password minimal 8 karakter';
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(form.password)) {
+            newErrors.password = 'Harus mengandung huruf besar, kecil, dan angka';
         }
         if (!form.confirmPassword) {
             newErrors.confirmPassword = 'Konfirmasi password tidak boleh kosong';

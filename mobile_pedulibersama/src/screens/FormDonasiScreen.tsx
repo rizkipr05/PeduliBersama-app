@@ -29,6 +29,10 @@ const FormDonasiScreen = () => {
             Alert.alert('Error', 'Minimal donasi adalah Rp 10.000');
             return;
         }
+        if (!isAnonymous && donatorName.trim() === '') {
+            Alert.alert('Error', 'Mohon isi nama Anda atau pilih Donasi sebagai Anonim');
+            return;
+        }
         (navigation as any).navigate('KonfirmasiDonasi', {
             disasterId,
             title,
