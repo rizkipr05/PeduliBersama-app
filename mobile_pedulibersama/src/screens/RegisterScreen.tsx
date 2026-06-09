@@ -19,6 +19,15 @@ interface RegisterScreenProps {
     navigation: any;
 }
 
+/**
+ * RegisterScreen: Halaman pendaftaran akun baru bagi pengguna.
+ * Fitur:
+ * - Validasi formulir secara langsung (email regex, password strength, pencocokan password)
+ * - Tampilan ramah pengguna dengan pesan kesalahan spesifik
+ * - Mengirim data pendaftaran ke endpoint API backend
+ *
+ * @param {RegisterScreenProps} props - Properti navigasi React Navigation
+ */
 const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
     const [form, setForm] = useState({
         fullName: '',

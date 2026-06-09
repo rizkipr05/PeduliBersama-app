@@ -21,6 +21,15 @@ interface LoginScreenProps {
     navigation: any;
 }
 
+/**
+ * LoginScreen: Halaman autentikasi utama.
+ * Fitur:
+ * - Validasi email format regex secara ketat
+ * - Pengambilan dan penyimpanan Token JWT di AsyncStorage
+ * - Penyimpanan profil pengguna sementara agar dapat diakses aplikasi
+ *
+ * @param {LoginScreenProps} props - Properti navigasi React Navigation
+ */
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

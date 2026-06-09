@@ -16,6 +16,11 @@ import { Disaster } from '../types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'DetailBencana'>;
 
+/**
+ * DetailBencanaScreen: Halaman detail kampanye donasi bencana.
+ * Mengambil data mendetail terkait sebuah bencana (termasuk daftar kebutuhan, progress donasi, dsb).
+ * Terdapat tombol Donasi yang melayang (BottomActionBar) di bagian bawah.
+ */
 const DetailBencanaScreen = () => {
     const navigation = useNavigation<NavigationProp>();
     const route = useRoute<any>();
