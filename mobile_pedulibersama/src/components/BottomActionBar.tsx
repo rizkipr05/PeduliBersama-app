@@ -18,7 +18,15 @@ const BottomActionBar: React.FC<BottomActionBarProps> = ({ onDonate }) => {
             <TouchableOpacity style={styles.bookmarkButton}>
                 <Bookmark size={20} color={Colors.primary} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.donateButton} onPress={onDonate}>
+            <TouchableOpacity 
+                style={styles.donateButton} 
+                onPress={onDonate} 
+                activeOpacity={0.8}
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel="Donasi Sekarang"
+                accessibilityHint="Membuka formulir donasi untuk kampanye ini"
+            >
                 <Text style={styles.donateText}>Donasi Sekarang</Text>
                 <Heart size={16} color="#FFFFFF" style={{ marginLeft: 8 }} />
             </TouchableOpacity>
