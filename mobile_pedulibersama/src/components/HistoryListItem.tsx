@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Spacing, Typography } from '../theme';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
 
 export type TransactionStatus = 'Berhasil' | 'Diproses' | 'Gagal';
 
@@ -72,16 +72,12 @@ const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         backgroundColor: Colors.surface,
-        borderRadius: 16,
+        borderRadius: BorderRadius.lg,
         padding: Spacing.md,
         marginHorizontal: Spacing.lg,
         marginBottom: Spacing.md,
         alignItems: 'center',
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 4,
+        ...Shadows.card,
     },
     image: {
         width: 60,
