@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MapPin, Calendar, Users, Clock } from 'lucide-react-native';
-import { Colors, Spacing, Typography } from '../theme';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
 import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
 import { getDaysLeft } from '../utils/date';
@@ -58,7 +58,7 @@ const DonationProgressBox: React.FC<DonationProgressBoxProps> = ({ disaster }) =
 };
 
 const styles = StyleSheet.create({
-    card: { backgroundColor: '#FFFFFF', borderRadius: 24, padding: Spacing.lg, marginTop: -60, marginHorizontal: Spacing.md, shadowColor: '#000', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
+    card: { backgroundColor: '#FFFFFF', borderRadius: BorderRadius.xl, padding: Spacing.lg, marginTop: -60, marginHorizontal: Spacing.md, ...Shadows.float },
     badge: { alignSelf: 'flex-start', backgroundColor: '#D1FAE5', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4, marginBottom: Spacing.sm },
     badgeText: { ...Typography.caption, color: '#059669', fontWeight: '700', fontSize: 10 },
     title: { ...Typography.h2, color: Colors.textPrimary, marginBottom: Spacing.sm },
