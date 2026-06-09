@@ -21,6 +21,7 @@ interface ButtonProps {
     fullWidth?: boolean;
     style?: ViewStyle;
     textStyle?: TextStyle;
+    accessibilityLabel?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -32,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
     fullWidth = true,
     style,
     textStyle,
+    accessibilityLabel,
 }) => {
     if (variant === 'primary') {
         return (
@@ -39,7 +41,11 @@ const Button: React.FC<ButtonProps> = ({
                 onPress={onPress}
                 disabled={disabled || loading}
                 style={[fullWidth && styles.fullWidth, style]}
-                activeOpacity={0.85}>
+                activeOpacity={0.85}
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel={accessibilityLabel || label}
+                accessibilityState={{ disabled: disabled || loading }}>
                 <LinearGradient
                     colors={
                         disabled
@@ -70,7 +76,11 @@ const Button: React.FC<ButtonProps> = ({
                     fullWidth && styles.fullWidth,
                     style,
                 ]}
-                activeOpacity={0.75}>
+                activeOpacity={0.75}
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel={accessibilityLabel || label}
+                accessibilityState={{ disabled: disabled || loading }}>
                 {loading ? (
                     <ActivityIndicator color={Colors.primary} />
                 ) : (
