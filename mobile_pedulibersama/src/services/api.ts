@@ -39,8 +39,21 @@ export const authApi = {
         api.post('/auth/login', data),
     register: (data: { name: string; email: string; password: string }) =>
         api.post('/auth/register', data),
-    logout: () => api.post('/auth/logout'),
-    getProfile: () => api.get('/auth/profile'),
+    logout: async () => {
+        const token = await AsyncStorage.getItem('access_token');
+        await AsyncStorage.removeItem('access_token');
+        await AsyncStorage.removeItem('user_info');
+        return api.post('/auth/logout', { token });
+    },
+    getProfile: async () => {
+        const token = await AsyncStorage.getItem('access_token');
+        if (!token) throw new Error('No token');
+        const val = await api.post('/auth/validate-token', { token });
+        const sub = val.data?.data?.sub;
+        if (!sub) throw new Error('Invalid token');
+        return api.get(`/users/${sub}`);
+    },
+    updateProfile: (id: number, data: any) => api.patch(`/users/${id}`, data),
 };
 
 // Bencana (Disaster) API
