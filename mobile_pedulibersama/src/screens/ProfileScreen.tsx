@@ -6,6 +6,7 @@ import { User, ShieldCheck, Clock, Heart, Bell, HelpCircle, LogOut } from 'lucid
 import { Colors, Spacing, Typography } from '../theme';
 import { authApi } from '../services/api';
 import { ActivityIndicator, Alert } from 'react-native';
+import { User as UserType } from '../types';
 
 import ProfileHeader from '../components/ProfileHeader';
 import ProfileHero from '../components/ProfileHero';
@@ -14,7 +15,7 @@ import ProfileMenuItem from '../components/ProfileMenuItem';
 const ProfileScreen = () => {
     const navigation = useNavigation();
     const [isNotifEnabled, setIsNotifEnabled] = useState(true);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType | null>(null);
     const [loading, setLoading] = useState(true);
 
     React.useEffect(() => {
