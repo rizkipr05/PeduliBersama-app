@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../theme';
 import { donasiApi } from '../services/api';
+import { Donation } from '../types';
 
 import HistoryHeader from '../components/HistoryHeader';
 import FilterTabs from '../components/FilterTabs';
@@ -77,7 +78,7 @@ const HistoryScreen = () => {
             try {
                 const res = await donasiApi.getMyDonations();
                 if (res.data?.data) {
-                    const mappedData = res.data.data.map((item: any) => {
+                    const mappedData = res.data.data.map((item: Donation) => {
                         const dateObj = new Date(item.createdAt);
                         return {
                             id: String(item.id),
