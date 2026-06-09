@@ -23,6 +23,10 @@ const FilterTabs: React.FC<FilterTabsProps> = ({ tabs, activeTab, onTabChange })
                         style={[styles.tab, isActive && styles.activeTab]}
                         onPress={() => onTabChange(tab)}
                         activeOpacity={0.8}
+                        accessible={true}
+                        accessibilityRole="tab"
+                        accessibilityState={{ selected: isActive }}
+                        accessibilityLabel={`Filter ${tab}`}
                     >
                         <Text style={[styles.tabText, isActive && styles.activeTabText]}>
                             {tab}
