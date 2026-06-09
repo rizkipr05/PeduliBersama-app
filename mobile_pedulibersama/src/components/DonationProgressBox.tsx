@@ -34,14 +34,14 @@ const DonationProgressBox: React.FC<DonationProgressBoxProps> = ({ disaster }) =
                 <View style={styles.progressHeader}>
                     <View>
                         <Text style={styles.progressLabel}>Terkumpul</Text>
-                        <Text style={styles.collectedAmount}>{formatRupiah(disaster.collectedAmount)}</Text>
+                        <Text style={styles.collectedAmount}>{formatRupiah(disaster.collectedAmount || 0)}</Text>
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
                         <Text style={styles.progressLabel}>Target</Text>
                         <Text style={styles.targetAmount}>{formatRupiah(disaster.targetAmount || 0)}</Text>
                     </View>
                 </View>
-                <ProgressBar progress={disaster.progress} />
+                <ProgressBar progress={disaster.progress || 0} />
                 <View style={styles.progressFooter}>
                     <View style={styles.iconText}>
                         <Users size={14} color={Colors.primary} />

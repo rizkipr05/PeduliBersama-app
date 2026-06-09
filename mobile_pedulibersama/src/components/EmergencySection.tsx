@@ -29,7 +29,7 @@ const EmergencySection: React.FC<EmergencySectionProps> = ({ data }) => {
                 renderItem={({ item }) => (
                     <DisasterCard
                         title={item.title}
-                        location={item.location}
+                        location={item.location || ''}
                         imageUrl={item.photos?.[0]?.photoUrl || item.imageUrl || 'https://via.placeholder.com/300'}
                         progress={item.progress || 0.5}
                         collectedAmount={item.collectedAmount || 1000000}

@@ -77,7 +77,7 @@ const ProfileScreen = () => {
                     email={user?.email || "email@domain.com"}
                     imageUrl={require('../assets/OIP.jpg')} // Fallback image
                     stats={{
-                        donations: user?.donations?.length || '0',
+                        donations: user?.donations ? String(user.donations.length) : '0',
                         totalRp: '4.2jt', // Idealnya kalkulasi dari backend
                         campaigns: '0'
                     }}

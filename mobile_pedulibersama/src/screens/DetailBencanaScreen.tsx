@@ -56,7 +56,8 @@ const DetailBencanaScreen = () => {
     const mappedDisaster = {
         id: disaster.id,
         title: disaster.title,
-        location: disaster.location,
+        location: disaster.location || '',
+        status: disaster.status || 'ACTIVE',
         imageUrl: disaster.photos?.[0]?.photoUrl || 'https://via.placeholder.com/400',
         progress: 0.6, // Data mockup karena backend belum mendukung targetAmount
         collectedAmount: 450000,

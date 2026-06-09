@@ -35,12 +35,12 @@ const DisasterListItem: React.FC<DisasterListItemProps> = ({
                 </View>
 
                 <View style={styles.progressContainer}>
-                    <ProgressBar progress={progress} />
+                    <ProgressBar progress={progress || 0} />
                 </View>
 
                 <View style={styles.footerRow}>
                     <Text style={styles.footerLabel}>Terkumpul</Text>
-                    <Text style={styles.amount}>{formatRupiah(collectedAmount)}</Text>
+                    <Text style={styles.amount}>{formatRupiah(collectedAmount || 0)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

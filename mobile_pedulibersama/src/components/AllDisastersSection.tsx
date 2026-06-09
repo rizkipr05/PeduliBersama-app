@@ -27,8 +27,10 @@ const AllDisastersSection: React.FC<AllDisastersSectionProps> = ({ data }) => {
                     data.map(item => (
                         <DisasterListItem
                             key={item.id}
+                            id={item.id}
+                            status={item.status}
                             title={item.title}
-                            location={item.location}
+                            location={item.location || ''}
                             imageUrl={item.photos?.[0]?.photoUrl || item.imageUrl || 'https://via.placeholder.com/100'}
                             progress={item.progress || 0.4}
                             collectedAmount={item.collectedAmount || 500000}
