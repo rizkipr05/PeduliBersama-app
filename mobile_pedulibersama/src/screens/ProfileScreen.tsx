@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { User, ShieldCheck, Clock, Heart, Bell, HelpCircle, LogOut } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
+import { authApi } from '../services/api';
+import { ActivityIndicator, Alert } from 'react-native';
 
 import ProfileHeader from '../components/ProfileHeader';
 import ProfileHero from '../components/ProfileHero';
@@ -12,6 +14,57 @@ import ProfileMenuItem from '../components/ProfileMenuItem';
 const ProfileScreen = () => {
     const navigation = useNavigation();
     const [isNotifEnabled, setIsNotifEnabled] = useState(true);
+    const [user, setUser] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await authApi.getProfile();
+                if (res.data?.data) {
+                    setUser(res.data.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch profile:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        // Refetch when focused
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchProfile();
+        });
+        return unsubscribe;
+    }, [navigation]);
+
+    const handleLogout = () => {
+        Alert.alert('Konfirmasi', 'Apakah Anda yakin ingin keluar?', [
+            { text: 'Batal', style: 'cancel' },
+            { 
+                text: 'Keluar', 
+                style: 'destructive',
+                onPress: async () => {
+                    try {
+                        await authApi.logout();
+                        (navigation as any).reset({
+                            index: 0,
+                            routes: [{ name: 'Login' }],
+                        });
+                    } catch (e) {
+                        Alert.alert('Error', 'Gagal logout');
+                    }
+                }
+            }
+        ]);
+    };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={[styles.safeArea, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -19,13 +72,13 @@ const ProfileScreen = () => {
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
                 <ProfileHero 
-                    name="Ahmad Fauzi"
-                    email="ahmad.fauzi@email.com"
+                    name={user?.name || "Hamba Allah"}
+                    email={user?.email || "email@domain.com"}
                     imageUrl={require('../assets/OIP.jpg')} // Fallback image
                     stats={{
-                        donations: '12',
-                        totalRp: '4.2jt',
-                        campaigns: '8'
+                        donations: user?.donations?.length || '0',
+                        totalRp: '4.2jt', // Idealnya kalkulasi dari backend
+                        campaigns: '0'
                     }}
                 />
 
@@ -79,6 +132,7 @@ const ProfileScreen = () => {
                             icon={<LogOut color="#D13C4B" size={20} />} 
                             isDestructive
                             hideBorder
+                            onPress={handleLogout}
                         />
                     </View>
                 </View>
