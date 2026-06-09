@@ -10,6 +10,9 @@ import HistoryHeader from '../components/HistoryHeader';
 import FilterTabs from '../components/FilterTabs';
 import DonationSummaryWidget from '../components/DonationSummaryWidget';
 import HistoryListItem, { HistoryListItemProps } from '../components/HistoryListItem';
+import LoadingSpinner from '../components/LoadingSpinner';
+import EmptyState from '../components/EmptyState';
+import { History } from 'lucide-react-native';
 
 const FILTER_TABS = ['Semua', 'Berhasil', 'Diproses', 'Gagal'];
 
@@ -125,9 +128,19 @@ const HistoryScreen = () => {
                 />
 
                 <View style={styles.listContainer}>
-                    {filteredHistory.map((item) => (
-                        <HistoryListItem key={item.id} {...item} />
-                    ))}
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : filteredHistory.length > 0 ? (
+                        filteredHistory.map((item) => (
+                            <HistoryListItem key={item.id} {...item} />
+                        ))
+                    ) : (
+                        <EmptyState 
+                            title="Belum Ada Donasi"
+                            description="Anda belum melakukan donasi pada kategori ini. Mari mulai berbagi kebaikan!"
+                            icon={<History color={Colors.textMuted} size={48} />}
+                        />
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
