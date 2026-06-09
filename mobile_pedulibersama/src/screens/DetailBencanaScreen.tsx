@@ -12,6 +12,7 @@ import BottomActionBar from '../components/BottomActionBar';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { bencanaApi } from '../services/api';
 import { ActivityIndicator } from 'react-native';
+import { Disaster } from '../types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'DetailBencana'>;
 
@@ -20,7 +21,7 @@ const DetailBencanaScreen = () => {
     const route = useRoute<any>();
     const { id } = route.params;
 
-    const [disaster, setDisaster] = React.useState<any>(null);
+    const [disaster, setDisaster] = React.useState<Disaster | null>(null);
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
