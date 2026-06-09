@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { Colors, Spacing, Typography } from '../theme';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
+import { Globe, HeartHandshake, ShieldCheck, ArrowRight } from 'lucide-react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,24 +17,22 @@ const slides = [
     {
         id: '1',
         title: 'Lihat Bencana Terkini',
-        subtitle:
-            'Temukan informasi bencana yang membutuhkan bantuan di seluruh Indonesia',
-        emoji: '🌏',
+        subtitle: 'Temukan informasi bencana yang membutuhkan bantuan di seluruh Indonesia',
+        icon: <Globe size={80} color={Colors.primary} />,
         bgColor: '#eef2fb',
     },
     {
         id: '2',
         title: 'Donasi dengan Mudah',
-        subtitle:
-            'Salurkan bantuan dalam hitungan menit, aman dan terpercaya melalui berbagai metode pembayaran pilihan Anda.',
-        emoji: '💳',
+        subtitle: 'Salurkan bantuan dalam hitungan menit, aman dan terpercaya melalui berbagai metode pembayaran pilihan Anda.',
+        icon: <HeartHandshake size={80} color={Colors.primary} />,
         bgColor: '#eef2fb',
     },
     {
         id: '3',
         title: 'Pantau Penyaluran',
         subtitle: 'Lacak ke mana donasimu disalurkan secara transparan',
-        emoji: '📦',
+        icon: <ShieldCheck size={80} color={Colors.primary} />,
         bgColor: '#eef2fb',
     },
 ];
@@ -65,7 +64,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }) => {
             {/* Illustration Area */}
             <View style={[styles.illustrationArea, { backgroundColor: item.bgColor }]}>
                 <View style={styles.illustrationBox}>
-                    <Text style={styles.illustrationEmoji}>{item.emoji}</Text>
+                    {item.icon}
                 </View>
             </View>
         </View>
@@ -143,7 +142,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }) => {
                         {isLastSlide ? (
                             <Text style={styles.nextButtonText}>Mulai</Text>
                         ) : (
-                            <Text style={styles.nextArrow}>→</Text>
+                            <ArrowRight size={24} color={Colors.white} />
                         )}
                     </TouchableOpacity>
                 </View>
@@ -169,18 +168,11 @@ const styles = StyleSheet.create({
     illustrationBox: {
         width: 160,
         height: 160,
-        borderRadius: 32,
+        borderRadius: BorderRadius.xl,
         backgroundColor: Colors.cardBackground,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-    },
-    illustrationEmoji: {
-        fontSize: 72,
+        ...Shadows.float,
     },
     bottomSection: {
         flex: 1,
