@@ -1,18 +1,19 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, StatusBar, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { Colors, Spacing } from '../theme';
+import { Disaster } from '../types';
+import { bencanaApi } from '../services/api';
+import { RootStackParamList } from '../navigation/AppNavigator';
+
 import DetailHeader from '../components/DetailHeader';
 import DonationProgressBox from '../components/DonationProgressBox';
 import AboutDisaster from '../components/AboutDisaster';
 import NeedsChip from '../components/NeedsChip';
 import FundraiserProfile from '../components/FundraiserProfile';
 import BottomActionBar from '../components/BottomActionBar';
-import { RootStackParamList } from '../navigation/AppNavigator';
-import { bencanaApi } from '../services/api';
-import { ActivityIndicator } from 'react-native';
-import { Disaster } from '../types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'DetailBencana'>;
 
