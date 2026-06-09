@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import DisasterListItem from './DisasterListItem';
+import EmptyState from './EmptyState';
+import { Box } from 'lucide-react-native';
 import { Disaster } from '../types';
 
 interface AllDisastersSectionProps {
@@ -21,17 +23,25 @@ const AllDisastersSection: React.FC<AllDisastersSectionProps> = ({ data }) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.verticalList}>
-                {data.map(item => (
-                    <DisasterListItem
-                        key={item.id}
-                        title={item.title}
-                        location={item.location}
-                        imageUrl={item.photos?.[0]?.photoUrl || item.imageUrl || 'https://via.placeholder.com/100'}
-                        progress={item.progress || 0.4}
-                        collectedAmount={item.collectedAmount || 500000}
-                        onPress={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
+                {data.length > 0 ? (
+                    data.map(item => (
+                        <DisasterListItem
+                            key={item.id}
+                            title={item.title}
+                            location={item.location}
+                            imageUrl={item.photos?.[0]?.photoUrl || item.imageUrl || 'https://via.placeholder.com/100'}
+                            progress={item.progress || 0.4}
+                            collectedAmount={item.collectedAmount || 500000}
+                            onPress={() => (navigation as any).navigate('DetailBencana', { id: item.id })}
+                        />
+                    ))
+                ) : (
+                    <EmptyState 
+                        title="Belum ada bencana" 
+                        description="Saat ini tidak ada data bencana yang memerlukan donasi." 
+                        icon={<Box color={Colors.textMuted} size={48} />}
                     />
-                ))}
+                )}
             </View>
         </>
     );
