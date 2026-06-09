@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { HeartHandshake, Megaphone, History, Shield, BadgeCheck } from 'lucide-react-native';
-import { Colors, Spacing, Typography } from '../theme';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
 
 export type NotificationType = 'donation' | 'campaign' | 'report' | 'security' | 'verification';
 
@@ -64,15 +64,11 @@ const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         backgroundColor: Colors.cardBackground,
-        borderRadius: 16,
+        borderRadius: BorderRadius.lg,
         padding: Spacing.md,
         marginHorizontal: Spacing.lg,
         marginBottom: Spacing.md,
-        elevation: 1,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.05,
-        shadowRadius: 3,
+        ...Shadows.card,
     },
     cardUnread: {
         backgroundColor: '#F3FAF5', // Light green bg for unread
