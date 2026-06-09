@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, RefreshControl, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { Colors, Spacing } from '../theme';
+import { Disaster } from '../types';
+import { bencanaApi } from '../services/api';
+
 import SearchBar from '../components/SearchBar';
 import HomeHeader from '../components/HomeHeader';
 import EmergencySection from '../components/EmergencySection';
 import AllDisastersSection from '../components/AllDisastersSection';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { bencanaApi } from '../services/api';
-import { Disaster } from '../types';
 
 /**
  * HomeScreen: Halaman utama aplikasi setelah pengguna berhasil login.
