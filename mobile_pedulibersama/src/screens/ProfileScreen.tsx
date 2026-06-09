@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { User, ShieldCheck, Clock, Heart, Bell, HelpCircle, LogOut } from 'lucide-react-native';
-import { Colors, Spacing, Typography } from '../theme';
+import { User as UserIcon, ShieldCheck, Clock, Heart, Bell, HelpCircle, LogOut } from 'lucide-react-native';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
 import { authApi } from '../services/api';
 import { ActivityIndicator, Alert } from 'react-native';
 import { User as UserType } from '../types';
@@ -88,7 +88,7 @@ const ProfileScreen = () => {
                     <View style={styles.menuCard}>
                         <ProfileMenuItem 
                             title="Edit Profil" 
-                            icon={<User color={Colors.primary} size={20} />} 
+                            icon={<UserIcon color={Colors.primary} size={20} />} 
                             onPress={() => (navigation as any).navigate('EditProfile')}
                         />
                         <ProfileMenuItem 
@@ -166,15 +166,11 @@ const styles = StyleSheet.create({
     },
     menuCard: {
         backgroundColor: Colors.cardBackground,
-        borderRadius: 20,
+        borderRadius: BorderRadius.xl,
         overflow: 'hidden',
-        elevation: 2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 8,
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0.02)',
+        ...Shadows.card,
     },
     appVersion: {
         ...Typography.caption,
