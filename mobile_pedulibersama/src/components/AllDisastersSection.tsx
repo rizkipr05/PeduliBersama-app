@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Spacing, Typography } from '../theme';
 import DisasterListItem from './DisasterListItem';
+import { Disaster } from '../types';
 
 interface AllDisastersSectionProps {
-    data: any[];
+    data: Disaster[];
 }
 
 const AllDisastersSection: React.FC<AllDisastersSectionProps> = ({ data }) => {

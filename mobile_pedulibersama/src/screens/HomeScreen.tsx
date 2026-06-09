@@ -7,6 +7,7 @@ import EmergencySection from '../components/EmergencySection';
 import AllDisastersSection from '../components/AllDisastersSection';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { bencanaApi } from '../services/api';
+import { Disaster } from '../types';
 
 /**
  * HomeScreen: Halaman utama aplikasi setelah pengguna berhasil login.
@@ -14,7 +15,7 @@ import { bencanaApi } from '../services/api';
  */
 const HomeScreen = () => {
     const [refreshing, setRefreshing] = useState(false);
-    const [disasters, setDisasters] = useState<any[]>([]);
+    const [disasters, setDisasters] = useState<Disaster[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchDisasters = async () => {
