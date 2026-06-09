@@ -7,6 +7,8 @@ import {
     TouchableOpacity,
     View,
     ViewStyle,
+    StyleProp,
+    TextStyle,
 } from 'react-native';
 import { Eye, EyeOff } from 'lucide-react-native';
 import { Colors, Spacing, Typography } from '../theme';
