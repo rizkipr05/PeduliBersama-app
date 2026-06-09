@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MapPin } from 'lucide-react-native';
-import { Colors, Spacing, Typography } from '../theme';
+import { Colors, Spacing, Typography, Shadows, BorderRadius } from '../theme';
 import ProgressBar from './ProgressBar';
 import { formatRupiah } from '../utils/format';
 import { Disaster } from '../types';
@@ -51,14 +51,10 @@ const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
-        borderRadius: 16,
+        borderRadius: BorderRadius.lg,
         padding: Spacing.sm,
         marginBottom: Spacing.md,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 8,
-        elevation: 2,
+        ...Shadows.card,
     },
     image: {
         width: 80,
