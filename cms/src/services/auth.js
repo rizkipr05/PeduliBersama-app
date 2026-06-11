@@ -7,6 +7,11 @@ export const login = async (data) => {
     const res = await api.post("/login", data);
     localStorage.setItem("token", res.data.access_token);
     localStorage.setItem("user", JSON.stringify(res.data.user));
+    
+    if (typeof window !== "undefined") {
+      document.cookie = `token=${res.data.access_token}; path=/; max-age=86400`;
+    }
+    
     return res.data;
   } catch {
     // FALLBACK: JSON-based Offline Login
@@ -29,6 +34,10 @@ export const login = async (data) => {
     localStorage.setItem("token", result.access_token);
     localStorage.setItem("user", JSON.stringify(result.user));
 
+    if (typeof window !== "undefined") {
+      document.cookie = `token=${result.access_token}; path=/; max-age=86400`;
+    }
+
     return result;
   }
 };
@@ -36,4 +45,8 @@ export const login = async (data) => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  
+  if (typeof window !== "undefined") {
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
 };
