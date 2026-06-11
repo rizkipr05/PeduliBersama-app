@@ -18,10 +18,12 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
+      console.log("Attempting login with:", form);
       await login(form);
       router.replace("/dashboard");
-    } catch (err) {
-      alert("Login gagal");
+    } catch (error) {
+      console.error("Login component error:", error);
+      alert("Login gagal: " + error.message);
     }
   };
 

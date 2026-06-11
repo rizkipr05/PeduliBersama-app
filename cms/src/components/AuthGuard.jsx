@@ -12,13 +12,21 @@ export default function AuthGuard({ children }) {
     const userData = localStorage.getItem("user");
     const user = userData ? JSON.parse(userData) : null;
 
+    console.log("AuthGuard Check:", { token, user });
+
     if (!token) {
       router.replace("/login");
       return;
     }
 
-    if (user?.role !== "admin") {
-      alert("Akses ditolak");
+    if (!user) {
+      console.warn("User data missing in localStorage");
+      router.replace("/login");
+      return;
+    }
+
+    if (user.role !== "admin") {
+      alert(`Akses ditolak: Role Anda adalah ${user.role}, tapi admin dibutuhkan.`);
       router.replace("/login");
       return;
     }

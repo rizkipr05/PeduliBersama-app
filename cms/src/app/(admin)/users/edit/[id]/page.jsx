@@ -26,26 +26,21 @@ export default function EditUserPage() {
     role: "donatur",
   });
 
-  // FETCH DETAIL
-  const fetchDetail = async () => {
-    try {
-
-      const res = await getUserById(id);
-
-      setForm({
-        name: res.data.name,
-        email: res.data.email,
-        role: res.data.role,
-      });
-
-      setLoading(false);
-
-    } catch (err) {
-      alert("Gagal mengambil data");
-    }
-  };
-
   useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        const res = await getUserById(id);
+        setForm({
+          name: res.data.name,
+          email: res.data.email,
+          role: res.data.role,
+        });
+        setLoading(false);
+      } catch {
+        alert("Gagal mengambil data");
+      }
+    };
+
     if (id) {
       fetchDetail();
     }
