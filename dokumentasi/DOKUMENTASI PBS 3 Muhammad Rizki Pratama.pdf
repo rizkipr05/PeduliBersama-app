@@ -1,0 +1,427 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Length 1742 >>
+stream
+BT
+/F2 26.00 Tf
+1 0 0 1 191.94 790.00 Tm
+(DOKUMENTASI PB) Tj
+ET
+BT
+/F1 15.00 Tf
+1 0 0 1 225.95 746.90 Tm
+(Peduli Bersama API) Tj
+ET
+BT
+/F2 13.00 Tf
+1 0 0 1 214.56 714.65 Tm
+(Muhammad Rizki Pratama) Tj
+ET
+BT
+/F1 10.00 Tf
+1 0 0 1 249.80 689.10 Tm
+(Folder sumber: api) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 651.60 Tm
+(RINGKASAN) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 633.60 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 620.60 Tm
+(- Backend dibuat dengan NestJS dan dibagi ke beberapa modul utama.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 605.24 Tm
+(- Akses data memakai Prisma dan database yang sudah disiapkan di proyek) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 589.88 Tm
+(api.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 574.52 Tm
+(- Dokumen ini merangkum endpoint HTTP yang dipakai untuk testing dan) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 559.16 Tm
+(integrasi.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 543.80 Tm
+(- Collection Postman tersedia di folder api/postman untuk pengujian manual.) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 520.44 Tm
+(STRUKTUR MODUL) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 502.44 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 489.44 Tm
+(- AuthModule untuk login, register, validasi token, dan manajemen user.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 474.08 Tm
+(- BencanaModule untuk data bencana, upload foto, dan kebutuhan bantuan.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 458.72 Tm
+(- DonasiModule untuk donasi, notifikasi Midtrans, dan update status.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 443.36 Tm
+(- KategoriModule berjalan lewat message pattern microservice.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 428.00 Tm
+(- PrismaModule digunakan sebagai penghubung ke database.) Tj
+ET
+BT
+/F1 9 Tf
+1 0 0 1 269.50 24.00 Tm
+(Halaman 1) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2011 >>
+stream
+BT
+/F2 10 Tf
+1 0 0 1 48.00 814.00 Tm
+(DOKUMENTASI PB - MUHAMMAD RIZKI PRATAMA) Tj
+ET
+0.78 w 0.5 0.5 0.5 RG 48.00 808.00 m 547.00 808.00 l S
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 782.00 Tm
+(ENDPOINT AUTH) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 764.00 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 751.00 Tm
+(- POST /auth/register - registrasi user baru.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 735.64 Tm
+(- POST /auth/login - login user.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 720.28 Tm
+(- POST /auth/admin/login - login admin.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 704.92 Tm
+(- POST /auth/logout - logout user atau admin.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 689.56 Tm
+(- POST /auth/validate-token - validasi token yang sedang aktif.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 674.20 Tm
+(- POST /users - membuat user baru sebagai admin.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 658.84 Tm
+(- GET /users - ambil daftar user.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 643.48 Tm
+(- GET /users/:id - ambil detail user.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 628.12 Tm
+(- PATCH /users/:id - update data user.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 612.76 Tm
+(- DELETE /users/:id - hapus user.) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 589.40 Tm
+(ENDPOINT BENCANA) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 571.40 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 558.40 Tm
+(- POST /bencana - buat data bencana baru.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 543.04 Tm
+(- GET /bencana - ambil semua data bencana.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 527.68 Tm
+(- GET /bencana/:id - ambil detail bencana.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 512.32 Tm
+(- PATCH /bencana/:id - update data bencana.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 496.96 Tm
+(- DELETE /bencana/:id - hapus data bencana.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 481.60 Tm
+(- POST /bencana/:id/photos - upload foto bencana.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 466.24 Tm
+(- PUT /bencana/:id/needs - set kebutuhan bencana.) Tj
+ET
+BT
+/F1 9 Tf
+1 0 0 1 269.50 24.00 Tm
+(Halaman 2) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 2807 >>
+stream
+BT
+/F2 10 Tf
+1 0 0 1 48.00 814.00 Tm
+(DOKUMENTASI PB - MUHAMMAD RIZKI PRATAMA) Tj
+ET
+0.78 w 0.5 0.5 0.5 RG 48.00 808.00 m 547.00 808.00 l S
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 782.00 Tm
+(ENDPOINT DONASI) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 764.00 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 751.00 Tm
+(- POST /donasi - buat donasi baru dan ambil payment URL / snap token.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 735.64 Tm
+(- GET /donasi/me - lihat riwayat donasi milik user yang login.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 720.28 Tm
+(- POST /donasi/midtrans-notification - webhook Midtrans tanpa header auth.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 704.92 Tm
+(- GET /donasi - lihat semua donasi sebagai admin.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 689.56 Tm
+(- PATCH /donasi/:id/status - ubah status donasi secara manual.) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 666.20 Tm
+(KATEGORI) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 648.20 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 635.20 Tm
+(- createKategori, findAllKategori, findOneKategori, updateKategori,) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 619.84 Tm
+(removeKategori.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 604.48 Tm
+(- Aksi kategori dipanggil lewat MessagePattern, bukan endpoint HTTP) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 589.12 Tm
+(langsung.) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 565.76 Tm
+(PENGUJIAN POSTMAN) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 547.76 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 534.76 Tm
+(1. Import collection api/postman/PeduliBersama.postman_collection.json.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 519.40 Tm
+(2. Import environment) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 504.04 Tm
+(api/postman/PeduliBersama.local.postman_environment.json.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 488.68 Tm
+(3. Pastikan baseUrl mengarah ke http://localhost:3001.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 473.32 Tm
+(4. Jalankan npm run seed:admin di folder api sebelum testing login admin.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 457.96 Tm
+(5. Ikuti urutan register user, login user, login admin, lalu endpoint lain.) Tj
+ET
+BT
+/F2 15.00 Tf
+1 0 0 1 48.00 434.60 Tm
+(CATATAN) Tj
+ET
+BT
+/F1 9.00 Tf
+1 0 0 1 48.00 416.60 Tm
+(____________________) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 403.60 Tm
+(- Token user dan admin disimpan otomatis ke collection variables setelah) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 388.24 Tm
+(login.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 372.88 Tm
+(- Header untuk endpoint terproteksi memakai Authorization: Bearer <token>.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 357.52 Tm
+(- Variabel untuk payload create dan update sudah disiapkan di environment.) Tj
+ET
+BT
+/F1 12.00 Tf
+1 0 0 1 64.00 342.16 Tm
+(- Dokumen ini dibuat untuk kebutuhan dokumentasi PB dan arsip tugas.) Tj
+ET
+BT
+/F1 9 Tf
+1 0 0 1 269.50 24.00 Tm
+(Halaman 3) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Title (DOKUMENTASI PBS 2 Muhammad Rizki Pratama) /Author (Muhammad Rizki Pratama) /Subject (Peduli Bersama API) /Creator (Codex) >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000134 00000 n 
+0000000204 00000 n 
+0000000279 00000 n 
+0000002073 00000 n 
+0000002209 00000 n 
+0000004272 00000 n 
+0000004408 00000 n 
+0000007267 00000 n 
+0000007404 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R /Info 11 0 R >>
+startxref
+7556
+%%EOF
