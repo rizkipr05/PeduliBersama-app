@@ -17,7 +17,7 @@ export default function DisasterPage() {
     getDisasters()
       .then((res) => {
         if (active) {
-          setData(Array.isArray(res.data?.data) ? res.data.data : []);
+          setData(Array.isArray(res.data) ? res.data : []);
         }
       })
       .catch(() => {
@@ -39,7 +39,7 @@ export default function DisasterPage() {
   const fetchData = async () => {
     try {
       const res = await getDisasters();
-      setData(Array.isArray(res.data?.data) ? res.data.data : []);
+      setData(Array.isArray(res.data) ? res.data : []);
     } catch {
       alert("Gagal mengambil data bencana");
     } finally {
